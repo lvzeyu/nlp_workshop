@@ -6,3 +6,8 @@ datasets
 fugashi
 ipadic
 torch
+pytorch_pretrained_bert
+scikit-learn
+numpy
+pandas
+accelerate

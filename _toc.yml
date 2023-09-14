@@ -7,4 +7,5 @@ root: intro
 parts:
 - caption: Transformersによるセンチメント分析
   chapters:
+  - file: introduction.ipynb
   - file: sentiment.ipynb
