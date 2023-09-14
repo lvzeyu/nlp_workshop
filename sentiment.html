@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sentiment';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Transformersによるセンチメント分析" href="introduction.html" />
+    <link rel="prev" title="イントロダクション" href="introduction.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -159,7 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Transformersによるセンチメント分析</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Transformersによるセンチメント分析</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">イントロダクション</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">実装</a></li>
 </ul>
 
@@ -215,7 +215,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tree/master/blob/master/nlp_workshop/sentiment.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/lvzeyu/nlp_workshop/blob/master/sentiment.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -246,7 +246,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/tree/master" target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -263,7 +263,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/tree/master/issues/new?title=Issue%20on%20page%20%2Fsentiment.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop/issues/new?title=Issue%20on%20page%20%2Fsentiment.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -395,7 +395,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トークン化</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">トークナイザの動作確認</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">データセット全体のトークン化</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">分類器の実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">分類器の実装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">事前学習モデルの導入</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">学習の準備</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">モデル精度の検証</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">モデル保存</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">学習済みモデルの読み込み</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -835,6 +842,15 @@ document.write(`
 </section>
 <section id="id10">
 <h2>分類器の実装<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<section id="id11">
+<h3>事前学習モデルの導入<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<p>Transformerライブラリは事前学習モデルの使用ため<code class="docutils literal notranslate"><span class="pre">AutoModel</span></code>クラスを提供します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">AutoModel</span></code>クラスはトークンエンコーディングを埋め込みに変換し、エンコーダスタックを経由して<strong>最後の</strong>隠れ状態を返します。</p>
+<p>特に、<code class="docutils literal notranslate"><span class="pre">AutoModelForSequenceClassification</span></code>はテキスト分類専用のクラスになります。</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>深層学習は大量の行列計算を伴うため、大量の行列計算や浮動小数点の演算を同時に高速に処理できるGPUが必要されます。PyTorchはGPUをサポートしております。</p>
+</aside>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -850,12 +866,32 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of BertForSequenceClassification were not initialized from the model checkpoint at cl-tohoku/bert-base-japanese-whole-word-masking and are newly initialized: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of BertForSequenceClassification were not initialized from the model checkpoint at cl-tohoku/bert-base-japanese-whole-word-masking and are newly initialized: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 </pre></div>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="s2">&quot;普段使いとバイクに乗るときのブーツ兼用として購入しました&quot;</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span> <span class="c1"># pytorch tensorに変換するためにreturn_tensors=&quot;pt&quot;を指定</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[ 0.5443, -0.1496, -0.0848]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>学習の準備<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>学習時に性能指標を与える必要があるため、それを関数化して定義しておきます。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span>
@@ -870,6 +906,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code>クラスを初期化する際には、<code class="docutils literal notranslate"><span class="pre">TrainingArguments</span></code>という訓練に関する様々な設定値の集合を引数に与えることで、訓練の設定に関する細かい調整が可能です。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">TrainingArguments</span>
@@ -895,6 +932,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </div>
+<p>Trainerクラスで実行します。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">Trainer</span>
@@ -916,7 +954,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
     <div>
       
       <progress value='83' max='1500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      [  83/1500 00:29 < 08:30, 2.78 it/s, Epoch 0.11/2]
+      [  83/1500 00:29 < 08:32, 2.77 it/s, Epoch 0.11/2]
     </div>
     <table border="1" class="dataframe">
   <thead>
@@ -930,7 +968,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
   </tbody>
 </table><p></div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">Trainer</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
@@ -999,6 +1037,10 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </div>
+</section>
+<section id="id13">
+<h3>モデル精度の検証<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>学習済みのモデルを他のデータセットに適用します。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_output</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset_encoded</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">])</span>
@@ -1008,6 +1050,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <div class="cell_output docutils container">
 <div class="output text_html"></div></div>
 </div>
+<p>混同行列でモデルの精度を検証します。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1034,6 +1077,9 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <img alt="_images/38959cf77b700ebf41502d4558662b3591396ca78be0169bbfa675a8471a47f0.png" src="_images/38959cf77b700ebf41502d4558662b3591396ca78be0169bbfa675a8471a47f0.png" />
 </div>
 </div>
+</section>
+<section id="id14">
+<h3>モデル保存<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">id2label</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1057,6 +1103,81 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </div>
+</section>
+<section id="id15">
+<h3>学習済みモデルの読み込み<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span>\
+    <span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./Data/sample-text-classification-bert&quot;</span><span class="p">)</span>
+
+<span class="n">new_model</span> <span class="o">=</span> <span class="p">(</span><span class="n">AutoModelForSequenceClassification</span>
+    <span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./Data/sample-text-classification-bert&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>サンプルテキストで推論の結果を確認します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span><span class="o">=</span><span class="s2">&quot;使い物にならない&quot;</span>
+<span class="n">text2</span><span class="o">=</span><span class="s2">&quot;とても気に入った&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">new_tokenizer</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+
+<span class="n">new_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">new_model</span><span class="p">(</span>
+        <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> 
+        <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="n">outputs</span><span class="o">.</span><span class="n">logits</span>
+
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_preds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">new_tokenizer</span><span class="p">(</span><span class="n">text2</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+
+<span class="n">new_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">new_model</span><span class="p">(</span>
+        <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> 
+        <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="n">outputs</span><span class="o">.</span><span class="n">logits</span>
+
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_preds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -1097,7 +1218,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Transformersによるセンチメント分析</p>
+        <p class="prev-next-title">イントロダクション</p>
       </div>
     </a>
 </div></div>
@@ -1128,7 +1249,14 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">トークン化</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">トークナイザの動作確認</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">データセット全体のトークン化</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">分類器の実装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">分類器の実装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">事前学習モデルの導入</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">学習の準備</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">モデル精度の検証</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">モデル保存</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">学習済みモデルの読み込み</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

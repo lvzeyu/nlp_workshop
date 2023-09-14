@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Transformersによるセンチメント分析 &#8212; My sample book</title>
+    <title>イントロダクション &#8212; My sample book</title>
   
   
   
@@ -158,7 +158,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Transformersによるセンチメント分析</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Transformersによるセンチメント分析</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">イントロダクション</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sentiment.html">実装</a></li>
 </ul>
 
@@ -214,7 +214,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tree/master/blob/master/nlp_workshop/introduction.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/lvzeyu/nlp_workshop/blob/master/introduction.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -245,7 +245,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/tree/master" target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -262,7 +262,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/tree/master/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -374,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Transformersによるセンチメント分析</h1>
+    <h1>イントロダクション</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -384,17 +384,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">イントロ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">テキスト分類</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">今回のワークショップで扱うこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">背景</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">はじめに</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">テキスト分類</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">今回のワークショップで扱うこと</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">転移学習とファインチューニング</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">テキスト分類器の学習</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">転移学習とファインチューニング</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">テキスト分類器の学習</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">参考文献</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">参考文献</a></li>
 </ul>
             </nav>
         </div>
@@ -406,12 +406,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="transformers">
-<h1>Transformersによるセンチメント分析<a class="headerlink" href="#transformers" title="Permalink to this heading">#</a></h1>
-<section id="id1">
-<h2>イントロ<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>イントロダクション<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
 <section id="id2">
-<h3>はじめに<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h2>背景<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3>はじめに<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>自然言語処理（NLP: Natural Language Processing）は、人間が日常的に使っている自然言語をコンピュータに処理させる一連の技術であり、人工知能（AI）の研究分野で中核を成す要素技術の一つといえます。</p>
 <p>私たちは普段、自分たちの言語の複雑さについて考えることはありません。言語は歩くのと同じように、訓練された反復可能な行動であるため、習得しやすく、青年期にはより自然に使用できるようになると言われています。ただ、人間にとって自然なことでも、大量の非構造化データを処理し、正式なルールがないばかりか、現実世界のコンテキストや意図もないコンピューターにとっては、それを成すことは非常に困難です。</p>
 <p>近年、自然言語処理技術の急速な進歩に驚きの声が上がっていました。</p>
@@ -421,17 +421,17 @@ document.write(`
 <p>高機能化のカギは、深層学習技術の発展があります。深層学習を用いた自然言語処理には、あらかじめ用意した膨大な文章を使って、「言語モデル」と呼ばれるシステムを学習させる方法があります。
 言語モデルの実体は簡単な計算式を大量に組み合わせた超巨大な数式といえます。最先端の言語モデルでは、想像を絶するほど大量の文章を使い、パラメータ（数式の係数）が数千億に達するほどの大規模な言語モデル(LLM : Large Language Models)を学習させて使っています。LLMが人間に匹敵するほどの高度な能力を持つ、文章の作成や会話を利用するさまざまな仕事を、コンピュータに任せることが可能になってきました。</p>
 </section>
-<section id="id3">
-<h3>テキスト分類<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>テキスト分類<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>テキスト分類とは、事前定義済みカテゴリまたはラベルを非構造化テキスト形式に割り当てる処理のことです。主な使用例として、感情分析、偽情報の検出や内容判定などが挙げられます。</p>
 <p>言語は本質的に曖昧で、変化し続け、適切に定義されていないため、テキスト分類は決して簡単なタスクではないが、深層学習による自然言語処理が発展したことにより、高精度化させることが可能になってきています。</p>
-<p>とくに2018年に発表されたBERT <span id="id4">[]</span> はセンチメント分析を含めた多くのタスクに関して、当時の最高性能(SOTA: State of the Art)を達成する画期的な技術でした。</p>
+<p>とくに2018年に発表されたBERT <span id="id5">[]</span> はセンチメント分析を含めた多くのタスクに関して、当時の最高性能(SOTA: State of the Art)を達成する画期的な技術でした。</p>
 <p>BERTは事前学習モデルの一種で、事前に一定のタスクに基づいて事前学習することで汎用性を獲得することに特徴があります。そのため、特定のタスクについてより少ないデータで性能を発揮することができます。</p>
-<p>BERTのような事前学習モデルによるテキスト分類の社会科学における応用可能性について多くの注目を集めています <span id="id5">[]</span>。</p>
+<p>BERTのような事前学習モデルによるテキスト分類の社会科学における応用可能性について多くの注目を集めています <span id="id6">[]</span>。</p>
 <p><img alt="" src="_images/text_class.png" /></p>
 </section>
-<section id="id6">
-<h3>今回のワークショップで扱うこと<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h3>今回のワークショップで扱うこと<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>参加者は形態素解析やテキストデータの前処理など自然言語処理の基礎知識を持つ方を想定していますので、今回のワークショップは以下の内容を扱います：</p>
 <ul class="simple">
 <li><p>転移学習とファインチューニングによるテキスト分類の枠組</p></li>
@@ -440,8 +440,8 @@ document.write(`
 </ul>
 </section>
 </section>
-<section id="id7">
-<h2>転移学習とファインチューニング<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<section id="id8">
+<h2>転移学習とファインチューニング<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 <p>転移学習は、あるタスクの学習で得られた知識を、他の関連するタスクの学習に適用する手法を指します。一般的には、以下のステップで行われることが多いです：</p>
 <ul class="simple">
 <li><p>事前学習: 事前学習モデル（pre-trained models)とは、大規模なデータセットを用いて訓練した学習済みモデルのことです。一般的に、大量のデータ（例えば、インターネット上のテキストデータ）を使用して、モデルを事前に学習します。この時点でのモデルは、言語の汎用的な特徴や構造を捉えることができます。</p></li>
@@ -462,21 +462,19 @@ document.write(`
 </li>
 </ul>
 </div>
-<section id="id8">
-<h3>テキスト分類器の学習<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<p><img alt="" src="_images/pretrain.png" /></p>
+<section id="id9">
+<h3>テキスト分類器の学習<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>テキストをトークン化する上で、低次元空間に存在するベクトルであるトークン埋め込みに変換します。</p></li>
 <li><p>トークン埋め込みはエンコーダブロック層に渡され、各入力トークンの隠れ状態が得られます。</p></li>
 <li><p>事前学習で、各隠れ状態はマスクされた入力トークンを予測する層に与えられます。</p></li>
 </ul>
-<p><img alt="" src="_images/fine-tuning.png" /></p>
 </section>
 </section>
-<section id="id9">
-<h2>参考文献<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
-<div class="docutils container" id="id10">
-<div class="citation" id="id11" role="doc-biblioentry">
+<section id="id10">
+<h2>参考文献<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<div class="docutils container" id="id11">
+<div class="citation" id="id12" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HdHPK14<span class="fn-bracket">]</span></span>
 <p>Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In <em>International Conference on Cognitive Neuroscience</em>. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.</p>
 </div>
@@ -552,17 +550,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">イントロ</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">テキスト分類</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">今回のワークショップで扱うこと</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">背景</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">はじめに</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">テキスト分類</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">今回のワークショップで扱うこと</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">転移学習とファインチューニング</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">テキスト分類器の学習</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">転移学習とファインチューニング</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">テキスト分類器の学習</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">参考文献</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">参考文献</a></li>
 </ul>
   </nav></div>
 
