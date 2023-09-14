@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="実装" href="sentiment.html" />
+    <link rel="next" title="センチメント分析の実装" href="sentiment.html" />
     <link rel="prev" title="Transformersによるセンチメント分析" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -158,7 +158,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">イントロダクション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sentiment.html">実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentiment.html">センチメント分析の実装</a></li>
 </ul>
 
     </div>
@@ -424,9 +424,9 @@ document.write(`
 <h3>テキスト分類<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>テキスト分類とは、事前定義済みカテゴリまたはラベルを非構造化テキスト形式に割り当てる処理のことです。主な使用例として、感情分析、偽情報の検出や内容判定などが挙げられます。</p>
 <p>言語は本質的に曖昧で、変化し続け、適切に定義されていないため、テキスト分類は決して簡単なタスクではないが、深層学習による自然言語処理が発展したことにより、高精度化させることが可能になってきています。</p>
-<p>とくに2018年に発表されたBERT <span id="id5">[]</span> はセンチメント分析を含めた多くのタスクに関して、当時の最高性能(SOTA: State of the Art)を達成する画期的な技術でした。</p>
+<p>とくに2018年に発表されたBERT <span id="id5">[<a class="reference internal" href="markdown.html#id6" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. \BERT\: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of the 2019 Conference of the North \A\merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), Proceedings of the 2019 Conference of the North, 4171–4186. Minneapolis, Minnesota, 2019. Association for Computational Linguistics. URL: https://www.aclweb.org/anthology/N19-1423, doi:10.18653/v1/n19-1423.">Devlin <em>et al.</em>, 2019</a>]</span> はセンチメント分析を含めた多くのタスクに関して、当時の最高性能(SOTA: State of the Art)を達成する画期的な技術でした。</p>
 <p>BERTは事前学習モデルの一種で、事前に一定のタスクに基づいて事前学習することで汎用性を獲得することに特徴があります。そのため、特定のタスクについてより少ないデータで性能を発揮することができます。</p>
-<p>BERTのような事前学習モデルによるテキスト分類の社会科学における応用可能性について多くの注目を集めています <span id="id6">[]</span>。</p>
+<p>BERTのような事前学習モデルによるテキスト分類の社会科学における応用可能性について多くの注目を集めています <span id="id6">[<a class="reference internal" href="markdown.html#id7" title="Moritz Laurer, Wouter van Atteveldt, Andreu Casas, and Kasper Welbers. Less annotating, more classifying: addressing the data scarcity issue of supervised machine learning with deep transfer learning and bert-nli. Political Analysis, pages 1–17, 2023. doi:10.1017/pan.2023.20.">Laurer <em>et al.</em>, 2023</a>]</span>。</p>
 <p><img alt="" src="_images/text_class.png" /></p>
 </section>
 <section id="id7">
@@ -475,9 +475,13 @@ document.write(`
 <section id="id10">
 <h2>参考文献<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id11">
-<div class="citation" id="id12" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>HdHPK14<span class="fn-bracket">]</span></span>
-<p>Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In <em>International Conference on Cognitive Neuroscience</em>. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.</p>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">DCLT19</a><span class="fn-bracket">]</span></span>
+<p>Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. \BERT\: Pre-training of Deep Bidirectional Transformers for Language Understanding. In <em>Proceedings of the 2019 Conference of the North \A\merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, Proceedings of the 2019 Conference of the North, 4171–4186. Minneapolis, Minnesota, 2019. Association for Computational Linguistics. URL: <a class="reference external" href="https://www.aclweb.org/anthology/N19-1423">https://www.aclweb.org/anthology/N19-1423</a>, <a class="reference external" href="https://doi.org/10.18653/v1/n19-1423">doi:10.18653/v1/n19-1423</a>.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">LvACW23</a><span class="fn-bracket">]</span></span>
+<p>Moritz Laurer, Wouter van Atteveldt, Andreu Casas, and Kasper Welbers. Less annotating, more classifying: addressing the data scarcity issue of supervised machine learning with deep transfer learning and bert-nli. <em>Political Analysis</em>, pages 1–17, 2023. <a class="reference external" href="https://doi.org/10.1017/pan.2023.20">doi:10.1017/pan.2023.20</a>.</p>
 </div>
 </div>
 </div>
@@ -529,7 +533,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">実装</p>
+        <p class="prev-next-title">センチメント分析の実装</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

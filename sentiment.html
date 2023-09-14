@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>実装 &#8212; Transformersによるセンチメント分析</title>
+    <title>センチメント分析の実装 &#8212; Transformersによるセンチメント分析</title>
   
   
   
@@ -159,7 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">イントロダクション</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">実装</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">センチメント分析の実装</a></li>
 </ul>
 
     </div>
@@ -374,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>実装</h1>
+    <h1>センチメント分析の実装</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -414,7 +414,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>実装<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<h1>センチメント分析の実装<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
 <section id="id2">
 <h2>環境配置<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">nlp_workshop</span>
@@ -428,6 +428,8 @@ document.write(`
 !pip install ipadic
 !pip install torch
 !pip install accelerate -U
+!pip install pytorch_pretrained_bert
+!pip install scikit-learn
 </pre></div>
 </div>
 </section>
@@ -684,7 +686,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>文の開始が[CLS]、文の終了(実際は複数系列の切れ目)が[SEP]という特殊なトークンとなっています。</p>
+<p>文の開始が[CLS]、文の終了が[SEP]という特殊なトークンとなっています。</p>
 </section>
 <section id="id9">
 <h2>データセット全体のトークン化<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
@@ -865,7 +867,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of BertForSequenceClassification were not initialized from the model checkpoint at cl-tohoku/bert-base-japanese-whole-word-masking and are newly initialized: [&#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of BertForSequenceClassification were not initialized from the model checkpoint at cl-tohoku/bert-base-japanese-whole-word-masking and are newly initialized: [&#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 </pre></div>
 </div>
@@ -882,7 +884,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[ 0.0888,  0.2534, -0.2283]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[0.3899, 0.2939, 0.0215]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
 </pre></div>
 </div>
 </div>
@@ -952,8 +954,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <div class="output text_html">
     <div>
       
-      <progress value='83' max='1500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      [  83/1500 00:29 < 08:32, 2.76 it/s, Epoch 0.11/2]
+      <progress value='84' max='1500' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      [  84/1500 00:29 < 08:30, 2.78 it/s, Epoch 0.11/2]
     </div>
     <table border="1" class="dataframe">
   <thead>
