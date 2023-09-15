@@ -8,4 +8,5 @@ parts:
 - caption:
   chapters:
   - file: introduction.ipynb
+  - file: fine_tuning.ipynb
   - file: sentiment.ipynb

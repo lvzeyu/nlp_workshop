@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sentiment';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="イントロダクション" href="introduction.html" />
+    <link rel="prev" title="転移学習とファインチューニング" href="fine_tuning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -159,6 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">イントロダクション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fine_tuning.html">転移学習とファインチューニング</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">センチメント分析の実装</a></li>
 </ul>
 
@@ -396,10 +397,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">データセット全体のトークン化</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">分類器の実装</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">事前学習モデルの導入</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">学習の準備</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">モデル精度の検証</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">モデル保存</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">学習済みモデルの読み込み</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tansformer">特徴抽出器としてのTansformer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">分類器の学習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer">Transformerのファインチューニング</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">学習の準備</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">モデル精度の検証</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">モデル保存</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">学習済みモデルの読み込み</a></li>
 </ul>
 </li>
 </ul>
@@ -630,13 +634,6 @@ document.write(`
 <p>トークナイザを動かしてみましょう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;普段使いとバイクに乗るときのブーツ兼用として購入しました&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">train_df</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;。&#39;</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 </pre></div>
@@ -852,10 +849,303 @@ document.write(`
 <p class="sidebar-title"></p>
 <p>深層学習は大量の行列計算を伴うため、大量の行列計算や浮動小数点の演算を同時に高速に処理できるGPUが必要されます。PyTorchはGPUをサポートしております。</p>
 </aside>
+</section>
+<section id="tansformer">
+<h3>特徴抽出器としてのTansformer<a class="headerlink" href="#tansformer" title="Permalink to this heading">#</a></h3>
+<p>先述したように、特徴抽出の際、事前学習済みモデルのパラメータを凍結し、隠れ状態を分類器の特徴として利用します。</p>
+<p>ここでは、テキストからどのように「状態」を抽出するか確認してみましょう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModel</span>
+
+<span class="c1"># GPUある場合はGPUを使う</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_ckpt</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>最初に、文字列をエンコーダしてトークンをPyTorchのテンソルに変換する必要があります。</p>
+<p>結果として得られるテンソルは<code class="docutils literal notranslate"><span class="pre">[batch_size,n_tokens]</span></code>という形状です。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="s2">&quot;普段使いとバイクに乗るときのブーツ兼用として購入しました&quot;</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span> <span class="c1"># pytorch tensorに変換するためにreturn_tensors=&quot;pt&quot;を指定</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input tensor shape: </span><span class="si">{</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Input tensor shape: torch.Size([1, 17])
+</pre></div>
+</div>
+</div>
+</div>
+<p>得られるテンソルをモデルの入力として渡します。</p>
+<ul class="simple">
+<li><p>モデルと同じデバイス(GPU or CPU)に設置します。</p></li>
+<li><p>計算のメモリを減らせるため、<code class="docutils literal notranslate"><span class="pre">torch.no_grad()</span></code>で、勾配の自動計算を無効します。</p></li>
+<li><p>出力には隠れ状態、損失、アテンションのオブジェクトが含まれます。</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BaseModelOutputWithPoolingAndCrossAttentions(last_hidden_state=tensor([[[-0.0847,  0.1351, -0.4395,  ..., -0.4982, -0.6514, -0.1812],
+         [ 0.4598,  0.2293,  0.4841,  ..., -0.0054, -0.3884,  0.1130],
+         [-0.3693,  0.2047, -0.1484,  ...,  0.8140, -0.5375,  0.2806],
+         ...,
+         [-0.0969, -0.1981,  0.0768,  ..., -0.6792, -0.8054, -0.2304],
+         [-0.2894,  0.4070, -0.1595,  ..., -0.5203, -0.5699,  0.0417],
+         [-0.4710,  0.2821, -0.6042,  ..., -0.7786,  0.1858,  0.4220]]],
+       device=&#39;cuda:0&#39;), pooler_output=tensor([[-0.6927, -0.0295, -0.1822, -0.2144,  0.1109,  0.9984, -0.1162, -0.1416,
+         -0.4032,  0.2412, -0.5233,  0.0353, -0.1194,  0.4348, -0.1704, -0.0522,
+          0.3496,  0.1107,  0.3005,  0.4705,  0.2974,  0.2746, -0.3991,  0.9181,
+          0.9999, -0.1110,  0.4712, -0.4118,  0.9997,  0.8054, -0.8208,  0.6063,
+         -0.1102,  0.4874,  0.3033,  0.0817,  0.3873, -0.3044, -0.1805,  0.0040,
+         -0.2526, -0.9986, -0.5488,  0.1878,  0.8630, -0.1465,  0.3296, -0.0738,
+          0.2411, -0.1666, -0.0074, -0.9318,  0.3535, -1.0000, -0.1380,  0.0230,
+         -0.0388, -0.3269, -0.4060,  0.8335,  0.9801,  0.9810,  0.2134,  0.4827,
+         -0.1189,  0.3543,  0.0271,  0.2525, -0.2036,  0.9700, -0.3991,  0.3111,
+         -0.1952,  0.3861,  0.2520, -0.0773,  0.9991, -0.2477,  0.5794,  0.1457,
+         -0.9651,  0.1088, -0.2396,  0.3358, -0.9804,  0.3841, -0.3508, -0.9078,
+         -0.0669,  0.8357,  0.3222, -0.9854, -0.0054, -0.1114, -0.3614,  0.1300,
+         -0.0294,  0.5134, -0.1713,  0.3719,  0.5120,  0.3396, -0.2546, -0.0502,
+          0.2817,  0.3161, -0.3300,  0.1138, -0.4520,  0.2893,  0.0358, -0.4225,
+         -0.2481,  0.0575, -0.0693, -0.1615, -0.2284, -0.0144, -0.1649,  0.3037,
+          0.1274, -0.1724,  0.2603, -0.2085, -0.9759, -0.9997, -0.3886, -0.1235,
+          0.4380, -0.3623,  0.0751,  0.0190,  0.0688, -0.0225, -0.2510, -0.2897,
+          0.2137,  0.1473,  0.1002,  0.4464, -0.4578,  0.9340,  0.2989,  0.2132,
+         -0.9998,  0.2729,  0.2273,  0.1139, -0.0555,  0.2499, -0.3300,  0.0276,
+          0.0496, -0.2926, -0.0470,  0.4303, -0.5139,  0.0564, -0.0214, -0.2855,
+         -0.4448, -0.1472, -0.1856, -0.4987, -0.1770, -0.0490, -0.0662,  0.5385,
+          0.9973,  0.8412,  0.0486,  0.8002,  0.1535, -0.8492,  0.1233,  0.4598,
+          0.0305,  0.0997,  0.3172,  0.2970, -0.3180,  0.3115,  0.5462, -0.1138,
+         -0.2239,  0.0833, -0.1717, -0.3981, -0.9788, -0.3960,  0.3823,  0.6812,
+          0.0461, -0.1201, -0.2163, -0.0892, -0.1594,  0.3204,  0.2186,  0.9579,
+         -0.9803,  0.0681, -0.0109,  0.2642, -0.3340, -0.1600, -0.9881,  0.5563,
+         -0.3445, -0.0424, -0.5417, -0.2405, -0.5805,  0.9687,  0.9917, -0.0311,
+         -0.3275,  0.0360,  0.2920, -0.1643, -0.0796,  0.3886,  0.5621,  0.1660,
+          0.0079, -0.0710, -0.2579,  0.6055,  0.0045,  0.9752,  0.9980, -0.0940,
+          0.5284, -0.4565,  0.0078,  0.2019, -0.4227,  0.2240, -0.0416, -0.2271,
+          0.1212,  0.2846,  0.1608,  0.9994, -0.1599,  0.1713,  0.0453, -0.1499,
+         -0.3036,  0.0932, -0.9999,  0.0656,  0.0483,  0.2180, -0.0547,  0.1452,
+          0.9993, -0.3855,  0.9990, -0.1814,  0.1848, -0.9741, -0.2543, -0.3599,
+          0.9993, -0.0645,  0.0893, -0.3064,  0.5449,  0.9973,  0.2142,  0.2201,
+          0.7750, -0.1518, -0.4040,  0.2065, -0.1812, -0.8215, -0.6682, -0.0249,
+          0.2015,  0.5255, -0.6134,  0.9997,  0.1495, -0.1094, -0.4406,  0.4066,
+         -0.3155, -0.9998,  0.6849, -0.4723, -0.2980,  0.2190, -0.2693,  0.3308,
+          0.1593, -0.4872,  0.0867,  0.9786, -0.2116, -0.9631,  0.4794,  0.2634,
+         -0.0820,  0.1713, -0.9999, -0.2893, -0.2268, -0.9995,  0.5935,  0.0411,
+         -0.9883, -0.1246, -0.2623,  0.2461, -0.2406, -0.0327, -0.0691, -0.1941,
+         -0.3231, -0.0342,  0.9799, -0.3241, -0.4906, -0.1406, -0.8911,  0.1326,
+         -0.0649,  0.4594,  0.1995, -0.6390,  0.2726,  0.0391, -0.0993,  0.2031,
+          0.2548, -0.1260, -0.4031, -0.3218,  0.2221, -0.9239, -0.5307, -0.1020,
+          0.0839, -0.0890, -0.0913, -0.2360, -0.2388,  0.0945, -0.1854, -0.0124,
+          0.2735, -0.2144, -0.1221,  0.1448,  0.4081, -0.1749, -0.9785, -0.2424,
+         -0.3286,  0.9893, -0.2978,  0.0545, -0.9993,  0.9608, -0.4015, -0.2760,
+         -0.0017,  0.1107,  0.2176, -0.6346,  0.1359,  0.3765,  0.3496, -0.8578,
+          0.3218, -0.2638,  0.4724,  0.9998,  0.0384,  0.4835, -0.0359,  0.3321,
+         -0.4080, -0.9687, -0.4049, -0.2404,  0.2280, -0.1353, -0.2476,  0.7799,
+         -0.4747,  0.4389, -0.1416,  0.3132,  0.3706,  0.2062, -0.2090, -0.2847,
+         -0.2985,  0.0191,  0.5114, -0.1107,  0.2303, -0.9840, -0.1441, -0.3769,
+          0.0664,  0.1790,  0.0917,  0.1832,  0.1429, -0.9999, -0.0924, -0.0892,
+         -0.8874, -0.9999,  0.3335,  0.2645,  0.4279,  0.3519, -0.5411, -0.0465,
+          0.0438, -0.9562,  0.3886, -0.4841, -0.4459,  0.2417, -0.9990,  0.9999,
+          0.1652,  0.2355,  0.0581, -0.3729,  0.4603,  0.9958, -0.2107,  0.9852,
+         -0.4382,  0.2611, -0.1247,  0.3441,  0.1949, -0.8457,  0.9189,  0.2063,
+         -0.5906,  0.2919,  0.9987,  0.2658,  0.1758,  0.9397,  0.2186, -0.2577,
+          0.3954, -0.8285, -0.5589, -0.0390, -0.0438, -0.1297,  0.3994, -0.9258,
+          0.8070,  0.9998,  0.0421, -0.8149,  0.4079, -0.4126, -0.0585,  0.0557,
+         -0.1657,  0.2321,  0.1914, -0.2129,  0.0566, -0.3396, -0.9643,  0.5129,
+         -0.9905, -0.0750,  0.1036, -0.9999,  0.3979, -0.3521,  0.0131, -0.2488,
+         -0.9503, -0.4691,  0.9999,  0.0071,  0.2643, -0.3159, -0.1569, -0.1050,
+         -0.2257,  0.4395,  0.9866,  0.0250,  0.3068, -0.9999,  0.1025,  0.3324,
+          0.3680, -0.2935, -0.1708, -0.0687,  0.0902, -0.9979, -0.0653, -0.3548,
+         -0.0025, -0.1129,  0.0865, -0.0138, -0.4222,  0.0381, -0.2172, -0.9892,
+         -0.1865,  0.3334, -0.3601,  0.9952,  0.3122,  0.5182, -0.9903,  0.0646,
+          0.9987, -0.2241,  0.9617, -0.3319, -0.2673, -1.0000, -0.5300,  0.2966,
+         -0.5918,  0.0907, -0.3914, -0.0170,  0.4578,  0.8573, -0.0537,  0.1112,
+         -0.4574,  0.9984, -0.4426,  0.3794, -0.7322, -0.3842, -0.8707,  0.0540,
+         -0.0459, -0.9770, -0.3177, -0.2388,  0.2671, -0.0377, -0.1217, -0.0344,
+         -0.0430,  0.7705,  0.5906, -0.0965, -0.9999, -0.4238,  0.0754,  0.0031,
+          0.1374, -0.1604,  0.2571, -0.1380, -0.8169,  0.0424, -0.8496, -0.9486,
+          0.9998, -0.4712,  0.1251, -0.3464,  0.2572, -0.1092, -0.4281, -0.3572,
+          0.1570,  0.6236,  0.4934, -0.3567,  0.3324,  0.1667,  0.2881, -0.1210,
+         -0.0052, -0.9511, -0.0675, -0.9828, -0.0888,  0.0477,  0.2755,  0.2862,
+         -0.0104,  0.9999,  0.4767,  0.9985,  0.5821, -0.8390, -0.2577, -0.3485,
+         -0.4676,  0.3372, -0.7660, -0.4233,  0.2717, -0.9934, -0.0838, -0.9753,
+         -0.1819,  0.0622, -0.1110, -0.1064,  0.9999,  0.2490, -0.1125, -0.0608,
+         -0.0974,  0.8748, -0.2276, -0.2011, -0.3183, -0.3697,  0.2867,  0.1939,
+         -0.2272, -0.0268,  0.8161, -0.3767,  0.0135,  0.0418,  0.1721,  0.0319,
+          0.1964, -0.1040, -0.4097,  0.3183, -0.4086, -0.9996,  0.8610,  0.9459,
+          0.2355, -0.0825,  0.1202,  0.3198, -0.1950,  0.3598, -1.0000, -0.2375,
+         -0.0841, -0.2366, -0.9494,  0.0991,  0.2702,  0.9981,  0.1660,  0.3475,
+          0.1486,  0.1151, -0.4251, -0.0845,  0.2892,  0.0386, -0.0043, -0.1714,
+          0.1221,  0.9963,  0.1436, -0.0965, -0.1617,  0.2209,  0.4757, -0.4188,
+          0.1983,  0.7842, -0.2501,  0.9936, -0.2257, -0.5050,  0.3033,  0.2998,
+          0.2481,  0.1745,  0.9796,  0.9655, -0.0587, -0.0654,  0.2236,  0.0988,
+          0.1220,  0.1010,  0.6959, -0.0572, -0.4730, -0.2987,  0.4410,  0.0441,
+          0.0569,  0.2781,  0.1314, -0.9987, -0.1715, -0.4451, -0.0056,  0.0197,
+          1.0000,  0.2488, -0.3358, -0.3446, -0.2529, -0.5153, -0.2846, -0.3887,
+         -0.2885, -0.2058, -0.0166, -0.2448, -0.1117, -0.9960,  0.4153,  0.4082,
+          0.0392, -0.5257,  0.3997, -0.8922, -0.9993,  0.1746, -0.1883,  0.4831,
+         -0.4727,  0.0959, -0.0774, -0.2919,  0.9740, -0.0956,  0.2375,  0.1742,
+         -0.3698,  0.1960,  0.0752,  0.3091, -0.9990,  0.3568,  0.2486, -0.1996,
+          0.3677, -0.0026,  0.4679, -0.9999,  0.1180,  0.4156, -0.2604,  0.1575,
+          0.2038,  0.3518, -0.3388,  0.4307, -0.1552,  0.0712,  0.0756, -0.5683]],
+       device=&#39;cuda:0&#39;), hidden_states=None, past_key_values=None, attentions=None, cross_attentions=None)
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここでは、最後の隠れ層に注目しましょう。</p>
+<p>隠れ状態のテンソルを確認すると、<code class="docutils literal notranslate"><span class="pre">[batch_size,</span> <span class="pre">n_tokens,</span> <span class="pre">hidden_dim]</span></code>という形をしていることがわかります。</p>
+<p>今回の例では、<span class="math notranslate nohighlight">\(17\)</span>個の入力トークンのそれぞれに対して、<span class="math notranslate nohighlight">\(768\)</span>次元のベクトルが返されます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span><span class="o">.</span><span class="n">last_hidden_state</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([1, 17, 768])
+</pre></div>
+</div>
+</div>
+</div>
+<p>分類タスクの場合、入力特徴として<code class="docutils literal notranslate"><span class="pre">[CLS]</span></code>トークンに関連つけられた隠れ状態だけ使うのが一般です。</p>
+<p>このトークンは各系列の最初にいますので、次のようにインデックスを指定し、抽出することができます。</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>``[CLS]```トークンに関連付けられた隠れ状態は、入力シーケンス全体を通じての情報を集約することが期待されています。これは、Transformerの自己注意メカニズムの働きにより、[CLS]トークンがシーケンス内の他の全てのトークンとの関係を考慮することができるためです。</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span><span class="o">.</span><span class="n">last_hidden_state</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([1, 768])
+</pre></div>
+</div>
+</div>
+</div>
+<p>最後の隠れ状態を取得する方法がわかりましたので、データ全体に対して処理を行うため、これまでのステップを関数でまとめます。</p>
+<p>そして、データ全体に適用し、すべてのテキストの隠れ状態を抽出します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_hidden_states</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+    <span class="c1"># Place model inputs on the GPU</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> 
+              <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">model_input_names</span><span class="p">}</span>
+    <span class="c1"># Extract last hidden states</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">last_hidden_state</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">last_hidden_state</span>
+    <span class="c1"># Return vector for [CLS] token</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;hidden_state&quot;</span><span class="p">:</span> <span class="n">last_hidden_state</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_encoded</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;torch&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;attention_mask&quot;</span><span class="p">,</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_hidden</span><span class="o">=</span><span class="n">dataset_encoded</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">extract_hidden_states</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>分類器の学習<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p>前処理されたデータセットには、分類器を学習させるために必要な情報がすべて含まれています。</p>
+<p>具体的には、隠れ状態を入力特徴量として、ラベルをターゲットとして使用します。これらの隠れ状態を使って、ロジスティック回帰モデルを学習します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataset_hidden</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">][</span><span class="s2">&quot;hidden_state&quot;</span><span class="p">])</span>
+<span class="n">X_valid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataset_hidden</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">][</span><span class="s2">&quot;hidden_state&quot;</span><span class="p">])</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataset_hidden</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">][</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+<span class="n">y_valid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataset_hidden</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">][</span><span class="s2">&quot;label&quot;</span><span class="p">])</span>
+<span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_valid</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((12000, 768), (3000, 768))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">lr_clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+<span class="n">lr_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression(max_iter=3000)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LogisticRegression</label><div class="sk-toggleable__content"><pre>LogisticRegression(max_iter=3000)</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lr_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7446666666666667
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_preds</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">disp</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">disp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span> <span class="n">values_format</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Normalized confusion matrix&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">lr_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y_preds</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;positive&quot;</span><span class="p">,</span><span class="s2">&quot;neutral&quot;</span><span class="p">,</span><span class="s2">&quot;negative&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1c27ea316873e569eb874ce07e173802d2dfd101444467299c30292288b9853f.png" src="_images/1c27ea316873e569eb874ce07e173802d2dfd101444467299c30292288b9853f.png" />
+</div>
+</div>
+</section>
+<section id="transformer">
+<h3>Transformerのファインチューニング<a class="headerlink" href="#transformer" title="Permalink to this heading">#</a></h3>
+<p>transformerライブラリは、ファインチューニングのタスクに応じてAPIを提供しています。</p>
+<p>分類タスクの場合、<code class="docutils literal notranslate"><span class="pre">AutoModel</span></code>の代わりに<code class="docutils literal notranslate"><span class="pre">AutoModelForSequenceClassification</span></code>を使用します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">AutoModelForSequenceClassification</span></code>が事前学習済みモデルの出力の上に分類器ヘッドを持っており、モデルの設定がより簡単になります。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSequenceClassification</span>
 
 <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 <span class="n">num_labels</span> <span class="o">=</span> <span class="mi">3</span>
@@ -884,14 +1174,14 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[0.3899, 0.2939, 0.0215]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[ 0.1503, -0.4490,  0.1844]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="id12">
-<h3>学習の準備<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<section id="id13">
+<h3>学習の準備<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>学習時に性能指標を与える必要があるため、それを関数化して定義しておきます。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -907,6 +1197,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </div>
+<p>学習ループを単純化するために、transformerライブラリの<code class="docutils literal notranslate"><span class="pre">Trainer</span></code> APIを使用します。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Trainer</span></code>クラスを初期化する際には、<code class="docutils literal notranslate"><span class="pre">TrainingArguments</span></code>という訓練に関する様々な設定値の集合を引数に与えることで、訓練の設定に関する細かい調整が可能です。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -934,6 +1225,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <p>Trainerクラスで実行します。</p>
+<p>結果を確認すると、特徴ベースのアプローチよりも精度が改善されることがわかります。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">Trainer</span>
@@ -954,8 +1246,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <div class="output text_html">
     <div>
       
-      <progress value='84' max='1500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      [  84/1500 00:29 < 08:30, 2.78 it/s, Epoch 0.11/2]
+      <progress value='85' max='1500' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      [  85/1500 00:29 < 08:23, 2.81 it/s, Epoch 0.11/2]
     </div>
     <table border="1" class="dataframe">
   <thead>
@@ -969,7 +1261,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
   </tbody>
 </table><p></div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">34</span><span class="p">],</span> <span class="n">line</span> <span class="mi">11</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">Trainer</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
@@ -989,49 +1281,51 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <span class="g g-Whitespace">   </span><span class="mi">1557</span>         <span class="n">ignore_keys_for_eval</span><span class="o">=</span><span class="n">ignore_keys_for_eval</span><span class="p">,</span>
 <span class="g g-Whitespace">   </span><span class="mi">1558</span>     <span class="p">)</span>
 
-<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/transformers/trainer.py:1835,</span> in <span class="ni">Trainer._inner_training_loop</span><span class="nt">(self, batch_size, args, resume_from_checkpoint, trial, ignore_keys_for_eval)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1832</span>     <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_handler</span><span class="o">.</span><span class="n">on_step_begin</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1834</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1835</span>     <span class="n">tr_loss_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_step</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1837</span> <span class="k">if</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1838</span>     <span class="n">args</span><span class="o">.</span><span class="n">logging_nan_inf_filter</span>
-<span class="g g-Whitespace">   </span><span class="mi">1839</span>     <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_torch_tpu_available</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1840</span>     <span class="ow">and</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">tr_loss_step</span><span class="p">)</span> <span class="ow">or</span> <span class="n">torch</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">tr_loss_step</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1841</span> <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1842</span>     <span class="c1"># if loss is nan or inf simply add the average of previous logged losses</span>
-<span class="g g-Whitespace">   </span><span class="mi">1843</span>     <span class="n">tr_loss</span> <span class="o">+=</span> <span class="n">tr_loss</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">global_step</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_globalstep_last_logged</span><span class="p">)</span>
+<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/transformers/trainer.py:1813,</span> in <span class="ni">Trainer._inner_training_loop</span><span class="nt">(self, batch_size, args, resume_from_checkpoint, trial, ignore_keys_for_eval)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1810</span>     <span class="n">rng_to_sync</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">   </span><span class="mi">1812</span> <span class="n">step</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="ne">-&gt; </span><span class="mi">1813</span> <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">inputs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epoch_iterator</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1814</span>     <span class="n">total_batched_samples</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">   </span><span class="mi">1815</span>     <span class="k">if</span> <span class="n">rng_to_sync</span><span class="p">:</span>
 
-<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/transformers/trainer.py:2690,</span> in <span class="ni">Trainer.training_step</span><span class="nt">(self, model, inputs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2688</span>         <span class="n">scaled_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">2689</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2690</span>     <span class="bp">self</span><span class="o">.</span><span class="n">accelerator</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2692</span> <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">gradient_accumulation_steps</span>
+<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/accelerate/data_loader.py:393,</span> in <span class="ni">DataLoaderShard.__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="c1"># But we still move it to the device so it is done before `StopIteration` is reached</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">393</span>         <span class="n">current_batch</span> <span class="o">=</span> <span class="n">send_to_device</span><span class="p">(</span><span class="n">current_batch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span>     <span class="n">next_batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">dataloader_iter</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span>     <span class="k">if</span> <span class="n">batch_index</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_batches</span><span class="p">:</span>
 
-<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/accelerate/accelerator.py:1923,</span> in <span class="ni">Accelerator.backward</span><span class="nt">(self, loss, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1921</span>     <span class="bp">self</span><span class="o">.</span><span class="n">scaler</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1922</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1923</span>     <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/accelerate/utils/operations.py:160,</span> in <span class="ni">send_to_device</span><span class="nt">(tensor, device, non_blocking, skip_keys)</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span>     <span class="k">elif</span> <span class="n">skip_keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span>         <span class="n">skip_keys</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span>     <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">tensor</span><span class="p">)(</span>
+<span class="ne">--&gt; </span><span class="mi">160</span>         <span class="p">{</span>
+<span class="nn">    161             k: t if k</span> in <span class="ni">skip_keys else send_to_device</span><span class="nt">(t, device, non_blocking=non_blocking, skip_keys=skip_keys)</span>
+<span class="nn">    162             for k, t</span> in <span class="ni">tensor.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>         <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span> <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span>     <span class="k">try</span><span class="p">:</span>
 
-<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/torch/_tensor.py:487,</span> in <span class="ni">Tensor.backward</span><span class="nt">(self, gradient, retain_graph, create_graph, inputs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">477</span> <span class="k">if</span> <span class="n">has_torch_function_unary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">478</span>     <span class="k">return</span> <span class="n">handle_torch_function</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span>         <span class="n">Tensor</span><span class="o">.</span><span class="n">backward</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">480</span>         <span class="p">(</span><span class="bp">self</span><span class="p">,),</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span>         <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">487</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span>     <span class="bp">self</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">retain_graph</span><span class="p">,</span> <span class="n">create_graph</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="p">)</span>
+<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/accelerate/utils/operations.py:161,</span> in <span class="ni">&lt;dictcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span>     <span class="k">elif</span> <span class="n">skip_keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span>         <span class="n">skip_keys</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span>     <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">tensor</span><span class="p">)(</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span>         <span class="p">{</span>
+<span class="nn">--&gt; 161             k: t if k</span> in <span class="ni">skip_keys else send_to_device</span><span class="nt">(t, device, non_blocking=non_blocking, skip_keys=skip_keys)</span>
+<span class="nn">    162             for k, t</span> in <span class="ni">tensor.items</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>         <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span> <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span>     <span class="k">try</span><span class="p">:</span>
 
-<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/torch/autograd/__init__.py:200,</span> in <span class="ni">backward</span><span class="nt">(tensors, grad_tensors, retain_graph, create_graph, grad_variables, inputs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="n">retain_graph</span> <span class="o">=</span> <span class="n">create_graph</span>
-<span class="g g-Whitespace">    </span><span class="mi">197</span> <span class="c1"># The reason we repeat same the comment below is that</span>
-<span class="g g-Whitespace">    </span><span class="mi">198</span> <span class="c1"># some Python versions print out the first line of a multi-line function</span>
-<span class="g g-Whitespace">    </span><span class="mi">199</span> <span class="c1"># calls in the traceback and some print out the last line</span>
-<span class="ne">--&gt; </span><span class="mi">200</span> <span class="n">Variable</span><span class="o">.</span><span class="n">_execution_engine</span><span class="o">.</span><span class="n">run_backward</span><span class="p">(</span>  <span class="c1"># Calls into the C++ engine to run the backward pass</span>
-<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="n">tensors</span><span class="p">,</span> <span class="n">grad_tensors_</span><span class="p">,</span> <span class="n">retain_graph</span><span class="p">,</span> <span class="n">create_graph</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">202</span>     <span class="n">allow_unreachable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">accumulate_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/accelerate/utils/operations.py:167,</span> in <span class="ni">send_to_device</span><span class="nt">(tensor, device, non_blocking, skip_keys)</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span> <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">167</span>         <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="n">non_blocking</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>     <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>  <span class="c1"># .to() doesn&#39;t accept non_blocking as kwarg</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>         <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
@@ -1039,8 +1333,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </section>
-<section id="id13">
-<h3>モデル精度の検証<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<section id="id14">
+<h3>モデル精度の検証<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
 <p>学習済みのモデルを他のデータセットに適用します。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1079,8 +1373,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </section>
-<section id="id14">
-<h3>モデル保存<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<section id="id15">
+<h3>モデル保存<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">id2label</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1105,8 +1399,8 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 </section>
-<section id="id15">
-<h3>学習済みモデルの読み込み<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<section id="id16">
+<h3>学習済みモデルの読み込み<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span>\
@@ -1214,12 +1508,12 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="introduction.html"
+       href="fine_tuning.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">イントロダクション</p>
+        <p class="prev-next-title">転移学習とファインチューニング</p>
       </div>
     </a>
 </div></div>
@@ -1252,10 +1546,13 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">データセット全体のトークン化</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">分類器の実装</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">事前学習モデルの導入</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">学習の準備</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">モデル精度の検証</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">モデル保存</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">学習済みモデルの読み込み</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tansformer">特徴抽出器としてのTansformer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">分類器の学習</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer">Transformerのファインチューニング</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">学習の準備</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">モデル精度の検証</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">モデル保存</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">学習済みモデルの読み込み</a></li>
 </ul>
 </li>
 </ul>
