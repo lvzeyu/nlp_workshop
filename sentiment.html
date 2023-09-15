@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sentiment';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="イントロダクション" href="introduction.html" />
+    <link rel="prev" title="転移学習とファインチューニング" href="fine_tuning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -159,6 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">イントロダクション</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fine_tuning.html">転移学習とファインチューニング</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">センチメント分析の実装</a></li>
 </ul>
 
@@ -851,7 +852,7 @@ document.write(`
 </section>
 <section id="tansformer">
 <h3>特徴抽出器としてのTansformer<a class="headerlink" href="#tansformer" title="Permalink to this heading">#</a></h3>
-<p>先述したように、ファインチューニングの際、事前学習済みモデルのパラメータを凍結し、隠れ状態を分類器の特徴として利用します。</p>
+<p>先述したように、特徴抽出の際、事前学習済みモデルのパラメータを凍結し、隠れ状態を分類器の特徴として利用します。</p>
 <p>ここでは、テキストからどのように「状態」を抽出するか確認してみましょう。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1110,7 +1111,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.745
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7446666666666667
 </pre></div>
 </div>
 </div>
@@ -1173,7 +1174,7 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[-0.0787, -0.1188,  0.3555]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SequenceClassifierOutput(loss=None, logits=tensor([[ 0.1503, -0.4490,  0.1844]], device=&#39;cuda:0&#39;), hidden_states=None, attentions=None)
 </pre></div>
 </div>
 </div>
@@ -1507,12 +1508,12 @@ You should probably TRAIN this model on a down-stream task to be able to use it 
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="introduction.html"
+       href="fine_tuning.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">イントロダクション</p>
+        <p class="prev-next-title">転移学習とファインチューニング</p>
       </div>
     </a>
 </div></div>
