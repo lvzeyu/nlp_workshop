@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>イントロダクション &#8212; My sample book</title>
+    <title>イントロダクション &#8212; Transformersによるセンチメント分析</title>
   
   
   
@@ -64,8 +64,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="実装" href="sentiment.html" />
-    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+    <link rel="next" title="センチメント分析の実装" href="sentiment.html" />
+    <link rel="prev" title="Transformersによるセンチメント分析" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -141,8 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/hf-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/hf-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -152,14 +152,13 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Transformersによるセンチメント分析
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Transformersによるセンチメント分析</span></p>
-<ul class="current nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">イントロダクション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sentiment.html">実装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentiment.html">センチメント分析の実装</a></li>
 </ul>
 
     </div>
@@ -214,7 +213,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/nlp_workshop/tree/blob/master/introduction.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/lvzeyu/nlp_workshop/blob/master/introduction.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -245,7 +244,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/tree" target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -262,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/tree/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -425,9 +424,9 @@ document.write(`
 <h3>テキスト分類<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>テキスト分類とは、事前定義済みカテゴリまたはラベルを非構造化テキスト形式に割り当てる処理のことです。主な使用例として、感情分析、偽情報の検出や内容判定などが挙げられます。</p>
 <p>言語は本質的に曖昧で、変化し続け、適切に定義されていないため、テキスト分類は決して簡単なタスクではないが、深層学習による自然言語処理が発展したことにより、高精度化させることが可能になってきています。</p>
-<p>とくに2018年に発表されたBERT <span id="id5">[]</span> はセンチメント分析を含めた多くのタスクに関して、当時の最高性能(SOTA: State of the Art)を達成する画期的な技術でした。</p>
+<p>とくに2018年に発表されたBERT <span id="id5">[<a class="reference internal" href="markdown.html#id6" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. \BERT\: Pre-training of Deep Bidirectional Transformers for Language Understanding. In Proceedings of the 2019 Conference of the North \A\merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), Proceedings of the 2019 Conference of the North, 4171–4186. Minneapolis, Minnesota, 2019. Association for Computational Linguistics. URL: https://www.aclweb.org/anthology/N19-1423, doi:10.18653/v1/n19-1423.">Devlin <em>et al.</em>, 2019</a>]</span> はセンチメント分析を含めた多くのタスクに関して、当時の最高性能(SOTA: State of the Art)を達成する画期的な技術でした。</p>
 <p>BERTは事前学習モデルの一種で、事前に一定のタスクに基づいて事前学習することで汎用性を獲得することに特徴があります。そのため、特定のタスクについてより少ないデータで性能を発揮することができます。</p>
-<p>BERTのような事前学習モデルによるテキスト分類の社会科学における応用可能性について多くの注目を集めています <span id="id6">[]</span>。</p>
+<p>BERTのような事前学習モデルによるテキスト分類の社会科学における応用可能性について多くの注目を集めています <span id="id6">[<a class="reference internal" href="markdown.html#id7" title="Moritz Laurer, Wouter van Atteveldt, Andreu Casas, and Kasper Welbers. Less annotating, more classifying: addressing the data scarcity issue of supervised machine learning with deep transfer learning and bert-nli. Political Analysis, pages 1–17, 2023. doi:10.1017/pan.2023.20.">Laurer <em>et al.</em>, 2023</a>]</span>。</p>
 <p><img alt="" src="_images/text_class.png" /></p>
 </section>
 <section id="id7">
@@ -464,19 +463,25 @@ document.write(`
 </div>
 <section id="id9">
 <h3>テキスト分類器の学習<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p><img alt="" src="_images/pretrain.png" /></p>
 <ul class="simple">
 <li><p>テキストをトークン化する上で、低次元空間に存在するベクトルであるトークン埋め込みに変換します。</p></li>
 <li><p>トークン埋め込みはエンコーダブロック層に渡され、各入力トークンの隠れ状態が得られます。</p></li>
 <li><p>事前学習で、各隠れ状態はマスクされた入力トークンを予測する層に与えられます。</p></li>
 </ul>
+<p><img alt="" src="_images/fine-tuning.png" /></p>
 </section>
 </section>
 <section id="id10">
 <h2>参考文献<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id11">
-<div class="citation" id="id12" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>HdHPK14<span class="fn-bracket">]</span></span>
-<p>Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In <em>International Conference on Cognitive Neuroscience</em>. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.</p>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">DCLT19</a><span class="fn-bracket">]</span></span>
+<p>Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. \BERT\: Pre-training of Deep Bidirectional Transformers for Language Understanding. In <em>Proceedings of the 2019 Conference of the North \A\merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, Proceedings of the 2019 Conference of the North, 4171–4186. Minneapolis, Minnesota, 2019. Association for Computational Linguistics. URL: <a class="reference external" href="https://www.aclweb.org/anthology/N19-1423">https://www.aclweb.org/anthology/N19-1423</a>, <a class="reference external" href="https://doi.org/10.18653/v1/n19-1423">doi:10.18653/v1/n19-1423</a>.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">LvACW23</a><span class="fn-bracket">]</span></span>
+<p>Moritz Laurer, Wouter van Atteveldt, Andreu Casas, and Kasper Welbers. Less annotating, more classifying: addressing the data scarcity issue of supervised machine learning with deep transfer learning and bert-nli. <em>Political Analysis</em>, pages 1–17, 2023. <a class="reference external" href="https://doi.org/10.1017/pan.2023.20">doi:10.1017/pan.2023.20</a>.</p>
 </div>
 </div>
 </div>
@@ -520,7 +525,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+        <p class="prev-next-title">Transformersによるセンチメント分析</p>
       </div>
     </a>
     <a class="right-next"
@@ -528,7 +533,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">実装</p>
+        <p class="prev-next-title">センチメント分析の実装</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -575,7 +580,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By Zeyu Lyu
 </p>
 
   </div>

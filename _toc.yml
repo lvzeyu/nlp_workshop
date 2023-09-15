@@ -5,7 +5,7 @@ format: jb-book
 root: intro
 
 parts:
-- caption: Transformersによるセンチメント分析
+- caption:
   chapters:
   - file: introduction.ipynb
   - file: sentiment.ipynb

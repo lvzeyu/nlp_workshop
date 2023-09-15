@@ -1,9 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: My sample book
-author: The Jupyter Book Community
-logo: logo.png
+title: Transformersによるセンチメント分析
+author: Zeyu Lyu
+logo: hf-logo.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -25,7 +25,7 @@ sphinx:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/lvzeyu/nlp_workshop/tree/ # Online location of your book
+  url: https://github.com/lvzeyu/nlp_workshop # Online location of your book
   branch: master  # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book
