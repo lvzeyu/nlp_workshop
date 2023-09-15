@@ -9,4 +9,5 @@ parts:
   chapters:
   - file: introduction.ipynb
   - file: fine_tuning.ipynb
+  - file: huggingface.ipynb
   - file: sentiment.ipynb

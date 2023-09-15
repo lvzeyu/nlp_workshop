@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Transformersによるセンチメント分析 &#8212; Transformersによるセンチメント分析</title>
+    <title>Hugging Face &#8212; Transformersによるセンチメント分析</title>
   
   
   
@@ -61,10 +61,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'huggingface';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="イントロダクション" href="introduction.html" />
+    <link rel="next" title="センチメント分析の実装" href="sentiment.html" />
+    <link rel="prev" title="転移学習とファインチューニング" href="fine_tuning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -130,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -149,16 +150,16 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Transformersによるセンチメント分析
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">イントロダクション</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine_tuning.html">転移学習とファインチューニング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="huggingface.html">Hugging Face</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hugging Face</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sentiment.html">センチメント分析の実装</a></li>
 </ul>
 
@@ -206,6 +207,37 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/lvzeyu/nlp_workshop/blob/master/huggingface.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -231,7 +263,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/lvzeyu/nlp_workshop/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/lvzeyu/nlp_workshop/issues/new?title=Issue%20on%20page%20%2Fhuggingface.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -261,7 +293,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/huggingface.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -271,7 +303,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -330,7 +362,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -341,11 +375,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Transformersによるセンチメント分析</h1>
+    <h1>Hugging Face</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hugging-face-hub">Hugging Face Hub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers">Transformersライブラリ</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -355,16 +398,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="transformers">
-<h1>Transformersによるセンチメント分析<a class="headerlink" href="#transformers" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">イントロダクション</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fine_tuning.html">転移学習とファインチューニング</a></li>
-<li class="toctree-l1"><a class="reference internal" href="huggingface.html">Hugging Face</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sentiment.html">センチメント分析の実装</a></li>
+  <section class="tex2jax_ignore mathjax_ignore" id="hugging-face">
+<h1>Hugging Face<a class="headerlink" href="#hugging-face" title="Permalink to this heading">#</a></h1>
+<p>Hugging Faceは、人工知能のモデルやデータを共有し、利用するためのオープンソースプラットフォームです。特に、NLPコミュニティにとって非常に価値のあるリソースを提供しており、研究や産業界でのアプリケーション開発に大きく貢献しています。</p>
+<p><img alt="" src="_images/hf-ecosystem.png" /></p>
+<section id="hugging-face-hub">
+<h2>Hugging Face Hub<a class="headerlink" href="#hugging-face-hub" title="Permalink to this heading">#</a></h2>
+<p>転移学習は事前学習済みモデルを新しいタスクに再利用するといった強みがあります。そのため、事前学習済みのモデルを素早く共有、ロードすることは重要です。</p>
+<p><a class="reference external" href="https://huggingface.co/">Hugging Face Hub</a>は、モデル、データセットとデモを備えたプラットフォームです。</p>
+</section>
+<section id="transformers">
+<h2>Transformersライブラリ<a class="headerlink" href="#transformers" title="Permalink to this heading">#</a></h2>
+<p>Transformers ライブラリは、Hugging Faceによって開発された自然言語処理のためのPythonライブラリです。</p>
+<ul class="simple">
+<li><p>多数の事前学習済みモデル: ライブラリは、BERT、GPT-2、RoBERTa、T5、DistilBERTなど、さまざまな有名なNLPモデルの事前学習済みバージョンを提供しています。</p></li>
+<li><p>モデルの利用の簡易化: 事前学習済みのモデルを簡単にダウンロードし、特定のタスクにファインチューニングするための高レベルのAPIを提供しています。</p></li>
+<li><p>Tokenizers: ほとんどのモデルには、テキストデータをモデルが扱える形式に変換するためのトークナイザが付属しています。これはテキストの前処理を簡単に行うためのツールです。</p></li>
+<li><p>Model Hubの統合: Hugging FaceのModel Hubと直接統合されており、コミュニティによって共有されている数千もの事前学習済みモデルに簡単にアクセスできます。</p></li>
 </ul>
-</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -398,12 +450,21 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="fine_tuning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">転移学習とファインチューニング</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="introduction.html"
+       href="sentiment.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">イントロダクション</p>
+        <p class="prev-next-title">センチメント分析の実装</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -416,6 +477,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hugging-face-hub">Hugging Face Hub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers">Transformersライブラリ</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
