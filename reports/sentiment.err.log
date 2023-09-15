@@ -30,8 +30,6 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['from transformers import Trainer', '', 'trainer = Trainer(', '    model=model,', '    args=training_args,']
-...
-['    train_dataset=dataset_encoded["train"],', '    eval_dataset=dataset_encoded["validation"],', '    tokenizer=tokenizer', ')', 'trainer.train()']
+dataset_hidden=dataset_encoded.map(extract_hidden_states, batched=True, batch_size=16)
 -------------------
 
