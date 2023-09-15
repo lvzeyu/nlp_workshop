@@ -437,6 +437,38 @@ document.write(`
 !pip install scikit-learn
 </pre></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>nvidia-smi
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fri Sep 15 13:55:56 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 525.125.06   Driver Version: 525.125.06   CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA RTX A6000    Off  | 00000000:01:00.0 Off |                  Off |
+| 30%   35C    P8    23W / 300W |    138MiB / 49140MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1355      G   /usr/lib/xorg/Xorg                 78MiB |
+|    0   N/A  N/A      1505      G   /usr/bin/gnome-shell                8MiB |
++-----------------------------------------------------------------------------+
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="id3">
 <h2>サンプルデータ<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
@@ -1075,709 +1107,712 @@ document.write(`
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|                                                                                                                                                         | 0/12000 [00:00&lt;?, ? examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|▏                                                                                                                                              | 16/12000 [00:00&lt;01:31, 131.36 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|▏                                                                                                                                              | 16/12000 [00:00&lt;01:30, 133.06 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|▍                                                                                                                                              | 32/12000 [00:00&lt;01:31, 130.97 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|▍                                                                                                                                              | 32/12000 [00:00&lt;01:30, 132.30 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|▌                                                                                                                                              | 48/12000 [00:00&lt;01:31, 130.88 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   0%|▌                                                                                                                                              | 48/12000 [00:00&lt;01:30, 132.03 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|▊                                                                                                                                              | 64/12000 [00:00&lt;01:31, 130.89 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|▊                                                                                                                                              | 64/12000 [00:00&lt;01:30, 131.86 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|▉                                                                                                                                              | 80/12000 [00:00&lt;01:31, 130.87 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|▉                                                                                                                                              | 80/12000 [00:00&lt;01:30, 131.77 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▏                                                                                                                                             | 96/12000 [00:00&lt;01:31, 130.78 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▏                                                                                                                                             | 96/12000 [00:00&lt;01:30, 131.72 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▎                                                                                                                                            | 112/12000 [00:00&lt;01:30, 130.81 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▎                                                                                                                                            | 112/12000 [00:00&lt;01:30, 131.67 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▌                                                                                                                                            | 128/12000 [00:00&lt;01:30, 130.49 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▌                                                                                                                                            | 128/12000 [00:00&lt;01:30, 131.02 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▋                                                                                                                                            | 144/12000 [00:01&lt;01:30, 130.46 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▋                                                                                                                                            | 144/12000 [00:01&lt;01:30, 131.21 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▉                                                                                                                                            | 160/12000 [00:01&lt;01:30, 130.47 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|█▉                                                                                                                                            | 160/12000 [00:01&lt;01:30, 131.31 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|██                                                                                                                                            | 176/12000 [00:01&lt;01:30, 130.39 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   1%|██                                                                                                                                            | 176/12000 [00:01&lt;01:29, 131.39 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▎                                                                                                                                           | 192/12000 [00:01&lt;01:30, 130.45 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▎                                                                                                                                           | 192/12000 [00:01&lt;01:29, 131.44 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▍                                                                                                                                           | 208/12000 [00:01&lt;01:30, 130.51 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▍                                                                                                                                           | 208/12000 [00:01&lt;01:29, 131.43 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▋                                                                                                                                           | 224/12000 [00:01&lt;01:30, 130.54 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▋                                                                                                                                           | 224/12000 [00:01&lt;01:29, 131.41 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▊                                                                                                                                           | 240/12000 [00:01&lt;01:30, 130.49 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|██▊                                                                                                                                           | 240/12000 [00:01&lt;01:29, 131.38 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|███                                                                                                                                           | 256/12000 [00:01&lt;01:30, 130.44 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|███                                                                                                                                           | 256/12000 [00:01&lt;01:29, 131.20 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|███▏                                                                                                                                          | 272/12000 [00:02&lt;01:29, 130.37 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|███▏                                                                                                                                          | 272/12000 [00:02&lt;01:29, 131.25 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|███▍                                                                                                                                          | 288/12000 [00:02&lt;01:29, 130.58 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   2%|███▍                                                                                                                                          | 288/12000 [00:02&lt;01:29, 131.15 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|███▌                                                                                                                                          | 304/12000 [00:02&lt;01:29, 130.85 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|███▌                                                                                                                                          | 304/12000 [00:02&lt;01:29, 131.21 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|███▊                                                                                                                                          | 320/12000 [00:02&lt;01:29, 131.02 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|███▊                                                                                                                                          | 320/12000 [00:02&lt;01:28, 131.29 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|███▉                                                                                                                                          | 336/12000 [00:02&lt;01:28, 131.17 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|███▉                                                                                                                                          | 336/12000 [00:02&lt;01:28, 131.38 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▏                                                                                                                                         | 352/12000 [00:02&lt;01:28, 131.34 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▏                                                                                                                                         | 352/12000 [00:02&lt;01:28, 131.43 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▎                                                                                                                                         | 368/12000 [00:02&lt;01:28, 131.37 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▎                                                                                                                                         | 368/12000 [00:02&lt;01:28, 131.35 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▌                                                                                                                                         | 384/12000 [00:02&lt;01:28, 131.36 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▌                                                                                                                                         | 384/12000 [00:02&lt;01:28, 131.16 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▋                                                                                                                                         | 400/12000 [00:03&lt;01:28, 131.32 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▋                                                                                                                                         | 400/12000 [00:03&lt;01:28, 131.18 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▉                                                                                                                                         | 416/12000 [00:03&lt;01:28, 131.35 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   3%|████▉                                                                                                                                         | 416/12000 [00:03&lt;01:28, 131.15 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████                                                                                                                                         | 432/12000 [00:03&lt;01:28, 131.38 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████                                                                                                                                         | 432/12000 [00:03&lt;01:28, 131.22 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▎                                                                                                                                        | 448/12000 [00:03&lt;01:27, 131.30 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▎                                                                                                                                        | 448/12000 [00:03&lt;01:28, 131.11 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▍                                                                                                                                        | 464/12000 [00:03&lt;01:27, 131.31 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▍                                                                                                                                        | 464/12000 [00:03&lt;01:28, 131.05 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▋                                                                                                                                        | 480/12000 [00:03&lt;01:27, 131.38 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▋                                                                                                                                        | 480/12000 [00:03&lt;01:27, 131.06 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▊                                                                                                                                        | 496/12000 [00:03&lt;01:27, 131.40 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|█████▊                                                                                                                                        | 496/12000 [00:03&lt;01:27, 131.10 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|██████                                                                                                                                        | 512/12000 [00:03&lt;01:27, 131.47 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|██████                                                                                                                                        | 512/12000 [00:03&lt;01:27, 131.01 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|██████▏                                                                                                                                       | 528/12000 [00:04&lt;01:27, 131.27 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   4%|██████▏                                                                                                                                       | 528/12000 [00:04&lt;01:27, 130.87 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|██████▍                                                                                                                                       | 544/12000 [00:04&lt;01:27, 131.27 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|██████▍                                                                                                                                       | 544/12000 [00:04&lt;01:27, 130.81 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|██████▋                                                                                                                                       | 560/12000 [00:04&lt;01:27, 131.32 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|██████▋                                                                                                                                       | 560/12000 [00:04&lt;01:27, 130.78 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|██████▊                                                                                                                                       | 576/12000 [00:04&lt;01:27, 131.30 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|██████▊                                                                                                                                       | 576/12000 [00:04&lt;01:27, 130.79 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████                                                                                                                                       | 592/12000 [00:04&lt;01:26, 131.32 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████                                                                                                                                       | 592/12000 [00:04&lt;01:27, 130.86 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▏                                                                                                                                      | 608/12000 [00:04&lt;01:26, 131.37 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▏                                                                                                                                      | 608/12000 [00:04&lt;01:26, 130.97 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▍                                                                                                                                      | 624/12000 [00:04&lt;01:26, 131.25 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▍                                                                                                                                      | 624/12000 [00:04&lt;01:26, 130.92 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▌                                                                                                                                      | 640/12000 [00:04&lt;01:26, 131.24 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▌                                                                                                                                      | 640/12000 [00:04&lt;01:26, 130.90 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▊                                                                                                                                      | 656/12000 [00:05&lt;01:26, 131.21 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   5%|███████▊                                                                                                                                      | 656/12000 [00:04&lt;01:26, 130.88 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|███████▉                                                                                                                                      | 672/12000 [00:05&lt;01:26, 131.25 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|███████▉                                                                                                                                      | 672/12000 [00:05&lt;01:26, 130.79 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▏                                                                                                                                     | 688/12000 [00:05&lt;01:26, 131.27 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▏                                                                                                                                     | 688/12000 [00:05&lt;01:26, 130.75 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▎                                                                                                                                     | 704/12000 [00:05&lt;01:26, 131.11 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▎                                                                                                                                     | 704/12000 [00:05&lt;01:26, 130.76 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▌                                                                                                                                     | 720/12000 [00:05&lt;01:25, 131.19 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▌                                                                                                                                     | 720/12000 [00:05&lt;01:26, 130.83 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▋                                                                                                                                     | 736/12000 [00:05&lt;01:25, 131.23 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▋                                                                                                                                     | 736/12000 [00:05&lt;01:26, 130.82 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▉                                                                                                                                     | 752/12000 [00:05&lt;01:25, 131.23 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|████████▉                                                                                                                                     | 752/12000 [00:05&lt;01:25, 130.82 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|█████████                                                                                                                                     | 768/12000 [00:05&lt;01:25, 131.16 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   6%|█████████                                                                                                                                     | 768/12000 [00:05&lt;01:25, 130.87 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▎                                                                                                                                    | 784/12000 [00:05&lt;01:25, 131.05 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▎                                                                                                                                    | 784/12000 [00:05&lt;01:25, 130.82 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▍                                                                                                                                    | 800/12000 [00:06&lt;01:25, 131.04 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▍                                                                                                                                    | 800/12000 [00:06&lt;01:25, 130.73 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▋                                                                                                                                    | 816/12000 [00:06&lt;01:25, 131.18 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▋                                                                                                                                    | 816/12000 [00:06&lt;01:25, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▊                                                                                                                                    | 832/12000 [00:06&lt;01:25, 131.20 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|█████████▊                                                                                                                                    | 832/12000 [00:06&lt;01:25, 130.69 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████                                                                                                                                    | 848/12000 [00:06&lt;01:24, 131.22 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████                                                                                                                                    | 848/12000 [00:06&lt;01:25, 130.73 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████▏                                                                                                                                   | 864/12000 [00:06&lt;01:24, 131.19 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████▏                                                                                                                                   | 864/12000 [00:06&lt;01:25, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████▍                                                                                                                                   | 880/12000 [00:06&lt;01:24, 131.16 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████▍                                                                                                                                   | 880/12000 [00:06&lt;01:25, 130.61 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████▌                                                                                                                                   | 896/12000 [00:06&lt;01:24, 131.20 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   7%|██████████▌                                                                                                                                   | 896/12000 [00:06&lt;01:24, 130.67 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|██████████▊                                                                                                                                   | 912/12000 [00:06&lt;01:24, 131.15 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|██████████▊                                                                                                                                   | 912/12000 [00:06&lt;01:24, 130.73 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|██████████▉                                                                                                                                   | 928/12000 [00:07&lt;01:24, 131.08 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|██████████▉                                                                                                                                   | 928/12000 [00:07&lt;01:24, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▏                                                                                                                                  | 944/12000 [00:07&lt;01:24, 131.12 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▏                                                                                                                                  | 944/12000 [00:07&lt;01:24, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▎                                                                                                                                  | 960/12000 [00:07&lt;01:24, 131.06 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▎                                                                                                                                  | 960/12000 [00:07&lt;01:24, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▌                                                                                                                                  | 976/12000 [00:07&lt;01:24, 131.18 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▌                                                                                                                                  | 976/12000 [00:07&lt;01:24, 130.72 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▋                                                                                                                                  | 992/12000 [00:07&lt;01:23, 131.25 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▋                                                                                                                                  | 992/12000 [00:07&lt;01:24, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▊                                                                                                                                 | 1008/12000 [00:07&lt;01:23, 131.16 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   8%|███████████▊                                                                                                                                 | 1008/12000 [00:07&lt;01:24, 130.65 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████                                                                                                                                 | 1024/12000 [00:07&lt;01:23, 131.01 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████                                                                                                                                 | 1024/12000 [00:07&lt;01:24, 130.65 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▏                                                                                                                                | 1040/12000 [00:07&lt;01:23, 130.97 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▏                                                                                                                                | 1040/12000 [00:07&lt;01:23, 130.66 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▍                                                                                                                                | 1056/12000 [00:08&lt;01:23, 131.03 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▍                                                                                                                                | 1056/12000 [00:08&lt;01:23, 130.61 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▌                                                                                                                                | 1072/12000 [00:08&lt;01:23, 131.10 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▌                                                                                                                                | 1072/12000 [00:08&lt;01:23, 130.63 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▊                                                                                                                                | 1088/12000 [00:08&lt;01:23, 130.98 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▊                                                                                                                                | 1088/12000 [00:08&lt;01:23, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▉                                                                                                                                | 1104/12000 [00:08&lt;01:23, 131.06 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|████████████▉                                                                                                                                | 1104/12000 [00:08&lt;01:23, 130.62 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|█████████████▏                                                                                                                               | 1120/12000 [00:08&lt;01:23, 131.06 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|█████████████▏                                                                                                                               | 1120/12000 [00:08&lt;01:23, 130.57 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|█████████████▎                                                                                                                               | 1136/12000 [00:08&lt;01:22, 131.06 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:   9%|█████████████▎                                                                                                                               | 1136/12000 [00:08&lt;01:23, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|█████████████▌                                                                                                                               | 1152/12000 [00:08&lt;01:22, 131.03 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|█████████████▌                                                                                                                               | 1152/12000 [00:08&lt;01:23, 130.61 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|█████████████▋                                                                                                                               | 1168/12000 [00:08&lt;01:22, 130.90 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|█████████████▋                                                                                                                               | 1168/12000 [00:08&lt;01:22, 130.61 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|█████████████▉                                                                                                                               | 1184/12000 [00:09&lt;01:22, 130.82 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|█████████████▉                                                                                                                               | 1184/12000 [00:09&lt;01:22, 130.56 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████                                                                                                                               | 1200/12000 [00:09&lt;01:22, 130.88 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████                                                                                                                               | 1200/12000 [00:09&lt;01:22, 130.58 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████▎                                                                                                                              | 1216/12000 [00:09&lt;01:22, 130.92 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████▎                                                                                                                              | 1216/12000 [00:09&lt;01:22, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████▍                                                                                                                              | 1232/12000 [00:09&lt;01:22, 130.83 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████▍                                                                                                                              | 1232/12000 [00:09&lt;01:22, 130.57 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████▋                                                                                                                              | 1248/12000 [00:09&lt;01:22, 130.83 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  10%|██████████████▋                                                                                                                              | 1248/12000 [00:09&lt;01:22, 130.55 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|██████████████▊                                                                                                                              | 1264/12000 [00:09&lt;01:22, 130.87 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|██████████████▊                                                                                                                              | 1264/12000 [00:09&lt;01:22, 130.56 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████                                                                                                                              | 1280/12000 [00:09&lt;01:21, 130.92 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████                                                                                                                              | 1280/12000 [00:09&lt;01:22, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▏                                                                                                                             | 1296/12000 [00:09&lt;01:21, 130.88 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▏                                                                                                                             | 1296/12000 [00:09&lt;01:21, 130.96 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▍                                                                                                                             | 1312/12000 [00:10&lt;01:21, 130.80 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▍                                                                                                                             | 1312/12000 [00:10&lt;01:21, 131.20 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▌                                                                                                                             | 1328/12000 [00:10&lt;01:21, 130.81 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▌                                                                                                                             | 1328/12000 [00:10&lt;01:21, 131.27 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▊                                                                                                                             | 1344/12000 [00:10&lt;01:21, 130.83 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▊                                                                                                                             | 1344/12000 [00:10&lt;01:21, 131.34 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▉                                                                                                                             | 1360/12000 [00:10&lt;01:21, 130.84 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|███████████████▉                                                                                                                             | 1360/12000 [00:10&lt;01:20, 131.45 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|████████████████▏                                                                                                                            | 1376/12000 [00:10&lt;01:21, 130.81 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  11%|████████████████▏                                                                                                                            | 1376/12000 [00:10&lt;01:20, 131.48 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▎                                                                                                                            | 1392/12000 [00:10&lt;01:21, 130.83 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▎                                                                                                                            | 1392/12000 [00:10&lt;01:20, 131.51 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▌                                                                                                                            | 1408/12000 [00:10&lt;01:20, 130.90 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▌                                                                                                                            | 1408/12000 [00:10&lt;01:20, 131.50 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▋                                                                                                                            | 1424/12000 [00:10&lt;01:20, 130.96 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▋                                                                                                                            | 1424/12000 [00:10&lt;01:20, 131.54 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▉                                                                                                                            | 1440/12000 [00:10&lt;01:20, 130.85 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|████████████████▉                                                                                                                            | 1440/12000 [00:10&lt;01:20, 131.56 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|█████████████████                                                                                                                            | 1456/12000 [00:11&lt;01:20, 130.81 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|█████████████████                                                                                                                            | 1456/12000 [00:11&lt;01:20, 131.61 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|█████████████████▎                                                                                                                           | 1472/12000 [00:11&lt;01:20, 130.78 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|█████████████████▎                                                                                                                           | 1472/12000 [00:11&lt;01:19, 131.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|█████████████████▍                                                                                                                           | 1488/12000 [00:11&lt;01:20, 130.82 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  12%|█████████████████▍                                                                                                                           | 1488/12000 [00:11&lt;01:19, 131.57 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|█████████████████▋                                                                                                                           | 1504/12000 [00:11&lt;01:20, 130.76 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|█████████████████▋                                                                                                                           | 1504/12000 [00:11&lt;01:19, 131.52 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|█████████████████▊                                                                                                                           | 1520/12000 [00:11&lt;01:20, 130.74 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|█████████████████▊                                                                                                                           | 1520/12000 [00:11&lt;01:19, 131.50 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████                                                                                                                           | 1536/12000 [00:11&lt;01:20, 130.74 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████                                                                                                                           | 1536/12000 [00:11&lt;01:19, 131.48 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▏                                                                                                                          | 1552/12000 [00:11&lt;01:19, 130.84 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▏                                                                                                                          | 1552/12000 [00:11&lt;01:19, 131.46 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▍                                                                                                                          | 1568/12000 [00:11&lt;01:19, 130.80 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▍                                                                                                                          | 1568/12000 [00:11&lt;01:19, 131.50 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▌                                                                                                                          | 1584/12000 [00:12&lt;01:19, 130.70 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▌                                                                                                                          | 1584/12000 [00:12&lt;01:19, 131.47 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▊                                                                                                                          | 1600/12000 [00:12&lt;01:19, 130.70 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▊                                                                                                                          | 1600/12000 [00:12&lt;01:19, 131.44 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▉                                                                                                                          | 1616/12000 [00:12&lt;01:19, 130.78 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  13%|██████████████████▉                                                                                                                          | 1616/12000 [00:12&lt;01:19, 131.44 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▏                                                                                                                         | 1632/12000 [00:12&lt;01:19, 130.74 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▏                                                                                                                         | 1632/12000 [00:12&lt;01:18, 131.44 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▎                                                                                                                         | 1648/12000 [00:12&lt;01:19, 130.68 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▎                                                                                                                         | 1648/12000 [00:12&lt;01:18, 131.43 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▌                                                                                                                         | 1664/12000 [00:12&lt;01:19, 130.68 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▌                                                                                                                         | 1664/12000 [00:12&lt;01:18, 131.45 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▋                                                                                                                         | 1680/12000 [00:12&lt;01:18, 130.78 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▋                                                                                                                         | 1680/12000 [00:12&lt;01:18, 131.43 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▉                                                                                                                         | 1696/12000 [00:12&lt;01:18, 130.67 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|███████████████████▉                                                                                                                         | 1696/12000 [00:12&lt;01:18, 131.35 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|████████████████████                                                                                                                         | 1712/12000 [00:13&lt;01:18, 130.50 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|████████████████████                                                                                                                         | 1712/12000 [00:13&lt;01:18, 131.34 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|████████████████████▎                                                                                                                        | 1728/12000 [00:13&lt;01:18, 130.56 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  14%|████████████████████▎                                                                                                                        | 1728/12000 [00:13&lt;01:18, 131.35 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|████████████████████▍                                                                                                                        | 1744/12000 [00:13&lt;01:18, 130.67 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|████████████████████▍                                                                                                                        | 1744/12000 [00:13&lt;01:18, 131.37 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|████████████████████▋                                                                                                                        | 1760/12000 [00:13&lt;01:18, 130.65 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|████████████████████▋                                                                                                                        | 1760/12000 [00:13&lt;01:17, 131.39 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|████████████████████▊                                                                                                                        | 1776/12000 [00:13&lt;01:18, 130.56 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|████████████████████▊                                                                                                                        | 1776/12000 [00:13&lt;01:17, 131.31 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████                                                                                                                        | 1792/12000 [00:13&lt;01:18, 130.55 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████                                                                                                                        | 1792/12000 [00:13&lt;01:17, 131.32 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▏                                                                                                                       | 1808/12000 [00:13&lt;01:18, 130.66 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▏                                                                                                                       | 1808/12000 [00:13&lt;01:17, 131.35 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▍                                                                                                                       | 1824/12000 [00:13&lt;01:17, 130.50 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▍                                                                                                                       | 1824/12000 [00:13&lt;01:17, 131.26 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▌                                                                                                                       | 1840/12000 [00:14&lt;01:17, 130.37 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▌                                                                                                                       | 1840/12000 [00:14&lt;01:17, 131.28 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▊                                                                                                                       | 1856/12000 [00:14&lt;01:17, 130.49 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  15%|█████████████████████▊                                                                                                                       | 1856/12000 [00:14&lt;01:17, 131.23 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|█████████████████████▉                                                                                                                       | 1872/12000 [00:14&lt;01:17, 130.63 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|█████████████████████▉                                                                                                                       | 1872/12000 [00:14&lt;01:17, 131.27 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▏                                                                                                                      | 1888/12000 [00:14&lt;01:17, 130.58 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▏                                                                                                                      | 1888/12000 [00:14&lt;01:17, 131.30 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▎                                                                                                                      | 1904/12000 [00:14&lt;01:17, 130.50 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▎                                                                                                                      | 1904/12000 [00:14&lt;01:16, 131.29 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▌                                                                                                                      | 1920/12000 [00:14&lt;01:17, 130.53 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▌                                                                                                                      | 1920/12000 [00:14&lt;01:16, 131.30 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▋                                                                                                                      | 1936/12000 [00:14&lt;01:17, 130.55 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▋                                                                                                                      | 1936/12000 [00:14&lt;01:16, 131.29 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▉                                                                                                                      | 1952/12000 [00:14&lt;01:16, 130.54 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|██████████████████████▉                                                                                                                      | 1952/12000 [00:14&lt;01:16, 131.25 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|███████████████████████                                                                                                                      | 1968/12000 [00:15&lt;01:16, 130.52 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  16%|███████████████████████                                                                                                                      | 1968/12000 [00:15&lt;01:16, 131.23 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▎                                                                                                                     | 1984/12000 [00:15&lt;01:16, 130.57 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▎                                                                                                                     | 1984/12000 [00:15&lt;01:16, 131.23 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▌                                                                                                                     | 2000/12000 [00:15&lt;01:16, 130.63 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▌                                                                                                                     | 2000/12000 [00:15&lt;01:16, 131.27 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▋                                                                                                                     | 2016/12000 [00:15&lt;01:16, 130.53 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▋                                                                                                                     | 2016/12000 [00:15&lt;01:16, 131.19 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▉                                                                                                                     | 2032/12000 [00:15&lt;01:16, 130.47 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|███████████████████████▉                                                                                                                     | 2032/12000 [00:15&lt;01:15, 131.18 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████                                                                                                                     | 2048/12000 [00:15&lt;01:16, 130.48 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████                                                                                                                     | 2048/12000 [00:15&lt;01:15, 131.22 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████▎                                                                                                                    | 2064/12000 [00:15&lt;01:16, 130.56 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████▎                                                                                                                    | 2064/12000 [00:15&lt;01:15, 131.22 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████▍                                                                                                                    | 2080/12000 [00:15&lt;01:16, 130.45 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████▍                                                                                                                    | 2080/12000 [00:15&lt;01:15, 131.20 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████▋                                                                                                                    | 2096/12000 [00:16&lt;01:15, 130.43 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  17%|████████████████████████▋                                                                                                                    | 2096/12000 [00:15&lt;01:15, 131.15 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|████████████████████████▊                                                                                                                    | 2112/12000 [00:16&lt;01:15, 130.49 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|████████████████████████▊                                                                                                                    | 2112/12000 [00:16&lt;01:15, 131.06 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████                                                                                                                    | 2128/12000 [00:16&lt;01:15, 130.53 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████                                                                                                                    | 2128/12000 [00:16&lt;01:15, 131.10 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▏                                                                                                                   | 2144/12000 [00:16&lt;01:15, 130.56 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▏                                                                                                                   | 2144/12000 [00:16&lt;01:15, 131.23 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▍                                                                                                                   | 2160/12000 [00:16&lt;01:15, 130.50 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▍                                                                                                                   | 2160/12000 [00:16&lt;01:15, 131.19 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▌                                                                                                                   | 2176/12000 [00:16&lt;01:15, 130.56 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▌                                                                                                                   | 2176/12000 [00:16&lt;01:14, 131.21 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▊                                                                                                                   | 2192/12000 [00:16&lt;01:15, 130.57 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▊                                                                                                                   | 2192/12000 [00:16&lt;01:14, 131.12 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▉                                                                                                                   | 2208/12000 [00:16&lt;01:15, 130.48 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  18%|█████████████████████████▉                                                                                                                   | 2208/12000 [00:16&lt;01:14, 131.18 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▏                                                                                                                  | 2224/12000 [00:16&lt;01:14, 130.51 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▏                                                                                                                  | 2224/12000 [00:16&lt;01:14, 131.20 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▎                                                                                                                  | 2240/12000 [00:17&lt;01:14, 130.59 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▎                                                                                                                  | 2240/12000 [00:17&lt;01:14, 131.17 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▌                                                                                                                  | 2256/12000 [00:17&lt;01:14, 130.60 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▌                                                                                                                  | 2256/12000 [00:17&lt;01:14, 131.08 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▋                                                                                                                  | 2272/12000 [00:17&lt;01:14, 130.58 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▋                                                                                                                  | 2272/12000 [00:17&lt;01:14, 131.14 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▉                                                                                                                  | 2288/12000 [00:17&lt;01:14, 130.58 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|██████████████████████████▉                                                                                                                  | 2288/12000 [00:17&lt;01:14, 131.21 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|███████████████████████████                                                                                                                  | 2304/12000 [00:17&lt;01:14, 130.59 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|███████████████████████████                                                                                                                  | 2304/12000 [00:17&lt;01:13, 131.22 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|███████████████████████████▎                                                                                                                 | 2320/12000 [00:17&lt;01:14, 130.50 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|███████████████████████████▎                                                                                                                 | 2320/12000 [00:17&lt;01:13, 131.09 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|███████████████████████████▍                                                                                                                 | 2336/12000 [00:17&lt;01:14, 130.35 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  19%|███████████████████████████▍                                                                                                                 | 2336/12000 [00:17&lt;01:13, 130.97 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|███████████████████████████▋                                                                                                                 | 2352/12000 [00:17&lt;01:13, 130.40 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|███████████████████████████▋                                                                                                                 | 2352/12000 [00:17&lt;01:13, 130.94 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|███████████████████████████▊                                                                                                                 | 2368/12000 [00:18&lt;01:13, 130.43 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|███████████████████████████▊                                                                                                                 | 2368/12000 [00:18&lt;01:13, 130.97 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████                                                                                                                 | 2384/12000 [00:18&lt;01:13, 130.52 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████                                                                                                                 | 2384/12000 [00:18&lt;01:13, 131.03 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▏                                                                                                                | 2400/12000 [00:18&lt;01:13, 130.52 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▏                                                                                                                | 2400/12000 [00:18&lt;01:13, 131.03 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▍                                                                                                                | 2416/12000 [00:18&lt;01:13, 130.55 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▍                                                                                                                | 2416/12000 [00:18&lt;01:13, 130.99 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▌                                                                                                                | 2432/12000 [00:18&lt;01:13, 130.46 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▌                                                                                                                | 2432/12000 [00:18&lt;01:13, 131.01 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▊                                                                                                                | 2448/12000 [00:18&lt;01:13, 130.42 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  20%|████████████████████████████▊                                                                                                                | 2448/12000 [00:18&lt;01:12, 131.07 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|████████████████████████████▉                                                                                                                | 2464/12000 [00:18&lt;01:13, 130.42 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|████████████████████████████▉                                                                                                                | 2464/12000 [00:18&lt;01:12, 131.05 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▏                                                                                                               | 2480/12000 [00:18&lt;01:12, 130.45 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▏                                                                                                               | 2480/12000 [00:18&lt;01:12, 130.99 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▎                                                                                                               | 2496/12000 [00:19&lt;01:12, 130.31 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▎                                                                                                               | 2496/12000 [00:19&lt;01:12, 130.95 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▌                                                                                                               | 2512/12000 [00:19&lt;01:12, 130.40 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▌                                                                                                               | 2512/12000 [00:19&lt;01:12, 131.01 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▋                                                                                                               | 2528/12000 [00:19&lt;01:12, 130.52 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▋                                                                                                               | 2528/12000 [00:19&lt;01:12, 131.09 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▉                                                                                                               | 2544/12000 [00:19&lt;01:12, 130.48 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|█████████████████████████████▉                                                                                                               | 2544/12000 [00:19&lt;01:12, 131.04 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|██████████████████████████████                                                                                                               | 2560/12000 [00:19&lt;01:12, 130.39 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|██████████████████████████████                                                                                                               | 2560/12000 [00:19&lt;01:12, 130.97 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|██████████████████████████████▎                                                                                                              | 2576/12000 [00:19&lt;01:12, 130.37 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  21%|██████████████████████████████▎                                                                                                              | 2576/12000 [00:19&lt;01:11, 130.95 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|██████████████████████████████▍                                                                                                              | 2592/12000 [00:19&lt;01:12, 130.35 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|██████████████████████████████▍                                                                                                              | 2592/12000 [00:19&lt;01:11, 130.94 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|██████████████████████████████▋                                                                                                              | 2608/12000 [00:19&lt;01:12, 130.31 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|██████████████████████████████▋                                                                                                              | 2608/12000 [00:19&lt;01:11, 131.03 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|██████████████████████████████▊                                                                                                              | 2624/12000 [00:20&lt;01:11, 130.27 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|██████████████████████████████▊                                                                                                              | 2624/12000 [00:20&lt;01:11, 130.94 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████                                                                                                              | 2640/12000 [00:20&lt;01:11, 130.29 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████                                                                                                              | 2640/12000 [00:20&lt;01:11, 130.94 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████▏                                                                                                             | 2656/12000 [00:20&lt;01:11, 130.38 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████▏                                                                                                             | 2656/12000 [00:20&lt;01:11, 130.91 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████▍                                                                                                             | 2672/12000 [00:20&lt;01:11, 130.32 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████▍                                                                                                             | 2672/12000 [00:20&lt;01:11, 130.94 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████▌                                                                                                             | 2688/12000 [00:20&lt;01:11, 130.31 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  22%|███████████████████████████████▌                                                                                                             | 2688/12000 [00:20&lt;01:11, 130.92 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|███████████████████████████████▊                                                                                                             | 2704/12000 [00:20&lt;01:11, 130.29 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|███████████████████████████████▊                                                                                                             | 2704/12000 [00:20&lt;01:11, 130.86 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|███████████████████████████████▉                                                                                                             | 2720/12000 [00:20&lt;01:11, 130.24 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|███████████████████████████████▉                                                                                                             | 2720/12000 [00:20&lt;01:10, 130.85 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▏                                                                                                            | 2736/12000 [00:20&lt;01:11, 130.21 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▏                                                                                                            | 2736/12000 [00:20&lt;01:10, 130.84 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▎                                                                                                            | 2752/12000 [00:21&lt;01:11, 130.25 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▎                                                                                                            | 2752/12000 [00:20&lt;01:10, 130.87 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▌                                                                                                            | 2768/12000 [00:21&lt;01:10, 130.22 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▌                                                                                                            | 2768/12000 [00:21&lt;01:10, 130.76 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▋                                                                                                            | 2784/12000 [00:21&lt;01:10, 130.27 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▋                                                                                                            | 2784/12000 [00:21&lt;01:10, 130.79 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▉                                                                                                            | 2800/12000 [00:21&lt;01:10, 130.35 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|████████████████████████████████▉                                                                                                            | 2800/12000 [00:21&lt;01:10, 130.82 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|█████████████████████████████████                                                                                                            | 2816/12000 [00:21&lt;01:10, 130.35 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  23%|█████████████████████████████████                                                                                                            | 2816/12000 [00:21&lt;01:10, 130.85 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▎                                                                                                           | 2832/12000 [00:21&lt;01:10, 130.25 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▎                                                                                                           | 2832/12000 [00:21&lt;01:10, 130.86 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▍                                                                                                           | 2848/12000 [00:21&lt;01:10, 130.18 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▍                                                                                                           | 2848/12000 [00:21&lt;01:09, 130.81 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▋                                                                                                           | 2864/12000 [00:21&lt;01:10, 130.21 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▋                                                                                                           | 2864/12000 [00:21&lt;01:09, 130.74 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▊                                                                                                           | 2880/12000 [00:22&lt;01:10, 130.13 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|█████████████████████████████████▊                                                                                                           | 2880/12000 [00:21&lt;01:09, 130.82 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|██████████████████████████████████                                                                                                           | 2896/12000 [00:22&lt;01:09, 130.13 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|██████████████████████████████████                                                                                                           | 2896/12000 [00:22&lt;01:09, 130.79 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|██████████████████████████████████▏                                                                                                          | 2912/12000 [00:22&lt;01:09, 130.22 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|██████████████████████████████████▏                                                                                                          | 2912/12000 [00:22&lt;01:09, 130.77 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|██████████████████████████████████▍                                                                                                          | 2928/12000 [00:22&lt;01:09, 130.29 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  24%|██████████████████████████████████▍                                                                                                          | 2928/12000 [00:22&lt;01:09, 130.75 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|██████████████████████████████████▌                                                                                                          | 2944/12000 [00:22&lt;01:09, 130.16 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|██████████████████████████████████▌                                                                                                          | 2944/12000 [00:22&lt;01:09, 130.81 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|██████████████████████████████████▊                                                                                                          | 2960/12000 [00:22&lt;01:09, 130.15 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|██████████████████████████████████▊                                                                                                          | 2960/12000 [00:22&lt;01:09, 130.71 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|██████████████████████████████████▉                                                                                                          | 2976/12000 [00:22&lt;01:09, 130.15 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|██████████████████████████████████▉                                                                                                          | 2976/12000 [00:22&lt;01:09, 130.59 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▏                                                                                                         | 2992/12000 [00:22&lt;01:09, 130.01 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▏                                                                                                         | 2992/12000 [00:22&lt;01:08, 130.57 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▎                                                                                                         | 3008/12000 [00:23&lt;01:09, 130.00 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▎                                                                                                         | 3008/12000 [00:22&lt;01:08, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▌                                                                                                         | 3024/12000 [00:23&lt;01:08, 130.11 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▌                                                                                                         | 3024/12000 [00:23&lt;01:08, 130.66 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▋                                                                                                         | 3040/12000 [00:23&lt;01:08, 130.06 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▋                                                                                                         | 3040/12000 [00:23&lt;01:08, 130.66 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▉                                                                                                         | 3056/12000 [00:23&lt;01:08, 130.03 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  25%|███████████████████████████████████▉                                                                                                         | 3056/12000 [00:23&lt;01:08, 130.65 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████                                                                                                         | 3072/12000 [00:23&lt;01:08, 130.10 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████                                                                                                         | 3072/12000 [00:23&lt;01:08, 130.72 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▎                                                                                                        | 3088/12000 [00:23&lt;01:08, 130.00 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▎                                                                                                        | 3088/12000 [00:23&lt;01:08, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▍                                                                                                        | 3104/12000 [00:23&lt;01:08, 130.01 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▍                                                                                                        | 3104/12000 [00:23&lt;01:08, 130.41 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▋                                                                                                        | 3120/12000 [00:23&lt;01:08, 129.98 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▋                                                                                                        | 3120/12000 [00:23&lt;01:08, 130.48 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▊                                                                                                        | 3136/12000 [00:23&lt;01:08, 130.00 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|████████████████████████████████████▊                                                                                                        | 3136/12000 [00:23&lt;01:07, 130.62 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|█████████████████████████████████████                                                                                                        | 3152/12000 [00:24&lt;01:08, 129.94 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|█████████████████████████████████████                                                                                                        | 3152/12000 [00:24&lt;01:07, 130.59 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|█████████████████████████████████████▏                                                                                                       | 3168/12000 [00:24&lt;01:07, 129.99 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  26%|█████████████████████████████████████▏                                                                                                       | 3168/12000 [00:24&lt;01:07, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▍                                                                                                       | 3184/12000 [00:24&lt;01:07, 130.05 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▍                                                                                                       | 3184/12000 [00:24&lt;01:07, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▌                                                                                                       | 3200/12000 [00:24&lt;01:07, 129.96 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▌                                                                                                       | 3200/12000 [00:24&lt;01:07, 130.68 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▊                                                                                                       | 3216/12000 [00:24&lt;01:07, 129.92 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▊                                                                                                       | 3216/12000 [00:24&lt;01:07, 130.48 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▉                                                                                                       | 3232/12000 [00:24&lt;01:07, 129.99 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|█████████████████████████████████████▉                                                                                                       | 3232/12000 [00:24&lt;01:07, 130.32 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▏                                                                                                      | 3248/12000 [00:24&lt;01:07, 129.78 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▏                                                                                                      | 3248/12000 [00:24&lt;01:07, 130.42 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▎                                                                                                      | 3264/12000 [00:24&lt;01:07, 129.86 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▎                                                                                                      | 3264/12000 [00:24&lt;01:06, 130.51 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▌                                                                                                      | 3280/12000 [00:25&lt;01:07, 129.97 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▌                                                                                                      | 3280/12000 [00:25&lt;01:06, 130.55 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▋                                                                                                      | 3296/12000 [00:25&lt;01:06, 129.97 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  27%|██████████████████████████████████████▋                                                                                                      | 3296/12000 [00:25&lt;01:06, 130.58 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|██████████████████████████████████████▉                                                                                                      | 3312/12000 [00:25&lt;01:06, 130.03 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|██████████████████████████████████████▉                                                                                                      | 3312/12000 [00:25&lt;01:06, 130.61 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████                                                                                                      | 3328/12000 [00:25&lt;01:06, 130.05 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████                                                                                                      | 3328/12000 [00:25&lt;01:06, 130.60 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▎                                                                                                     | 3344/12000 [00:25&lt;01:06, 129.95 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▎                                                                                                     | 3344/12000 [00:25&lt;01:06, 130.52 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▍                                                                                                     | 3360/12000 [00:25&lt;01:06, 129.83 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▍                                                                                                     | 3360/12000 [00:25&lt;01:06, 130.39 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▋                                                                                                     | 3376/12000 [00:25&lt;01:06, 129.82 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▋                                                                                                     | 3376/12000 [00:25&lt;01:06, 130.44 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▊                                                                                                     | 3392/12000 [00:25&lt;01:06, 129.79 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|███████████████████████████████████████▊                                                                                                     | 3392/12000 [00:25&lt;01:05, 130.51 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|████████████████████████████████████████                                                                                                     | 3408/12000 [00:26&lt;01:06, 129.80 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  28%|████████████████████████████████████████                                                                                                     | 3408/12000 [00:26&lt;01:05, 130.59 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▏                                                                                                    | 3424/12000 [00:26&lt;01:06, 129.88 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▏                                                                                                    | 3424/12000 [00:26&lt;01:05, 130.59 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▍                                                                                                    | 3440/12000 [00:26&lt;01:05, 129.81 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▍                                                                                                    | 3440/12000 [00:26&lt;01:05, 130.62 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▌                                                                                                    | 3456/12000 [00:26&lt;01:05, 129.74 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▌                                                                                                    | 3456/12000 [00:26&lt;01:05, 130.63 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▊                                                                                                    | 3472/12000 [00:26&lt;01:05, 129.70 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▊                                                                                                    | 3472/12000 [00:26&lt;01:05, 130.55 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▉                                                                                                    | 3488/12000 [00:26&lt;01:05, 129.55 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|████████████████████████████████████████▉                                                                                                    | 3488/12000 [00:26&lt;01:05, 130.49 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|█████████████████████████████████████████▏                                                                                                   | 3504/12000 [00:26&lt;01:05, 129.58 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|█████████████████████████████████████████▏                                                                                                   | 3504/12000 [00:26&lt;01:05, 130.53 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|█████████████████████████████████████████▎                                                                                                   | 3520/12000 [00:26&lt;01:05, 129.68 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|█████████████████████████████████████████▎                                                                                                   | 3520/12000 [00:26&lt;01:04, 130.51 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|█████████████████████████████████████████▌                                                                                                   | 3536/12000 [00:27&lt;01:05, 129.61 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  29%|█████████████████████████████████████████▌                                                                                                   | 3536/12000 [00:26&lt;01:04, 130.54 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|█████████████████████████████████████████▋                                                                                                   | 3552/12000 [00:27&lt;01:05, 129.56 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|█████████████████████████████████████████▋                                                                                                   | 3552/12000 [00:27&lt;01:04, 130.53 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|█████████████████████████████████████████▉                                                                                                   | 3568/12000 [00:27&lt;01:05, 129.50 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|█████████████████████████████████████████▉                                                                                                   | 3568/12000 [00:27&lt;01:04, 130.56 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████                                                                                                   | 3584/12000 [00:27&lt;01:05, 129.45 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████                                                                                                   | 3584/12000 [00:27&lt;01:04, 130.50 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▎                                                                                                  | 3600/12000 [00:27&lt;01:04, 129.49 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▎                                                                                                  | 3600/12000 [00:27&lt;01:04, 130.48 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▍                                                                                                  | 3616/12000 [00:27&lt;01:04, 129.44 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▍                                                                                                  | 3616/12000 [00:27&lt;01:04, 130.43 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▋                                                                                                  | 3632/12000 [00:27&lt;01:04, 129.47 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▋                                                                                                  | 3632/12000 [00:27&lt;01:04, 130.41 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▊                                                                                                  | 3648/12000 [00:27&lt;01:04, 129.52 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  30%|██████████████████████████████████████████▊                                                                                                  | 3648/12000 [00:27&lt;01:04, 130.42 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████                                                                                                  | 3664/12000 [00:28&lt;01:04, 129.48 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████                                                                                                  | 3664/12000 [00:27&lt;01:03, 130.47 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▏                                                                                                 | 3680/12000 [00:28&lt;01:04, 129.52 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▏                                                                                                 | 3680/12000 [00:28&lt;01:03, 130.55 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▍                                                                                                 | 3696/12000 [00:28&lt;01:04, 129.63 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▍                                                                                                 | 3696/12000 [00:28&lt;01:03, 130.44 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▌                                                                                                 | 3712/12000 [00:28&lt;01:04, 129.47 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▌                                                                                                 | 3712/12000 [00:28&lt;01:03, 130.39 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▊                                                                                                 | 3728/12000 [00:28&lt;01:03, 129.33 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▊                                                                                                 | 3728/12000 [00:28&lt;01:03, 130.35 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▉                                                                                                 | 3744/12000 [00:28&lt;01:03, 129.44 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▉                                                                                                 | 3744/12000 [00:28&lt;01:03, 130.33 examples/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|███████████████████████████████████████████▉                                                                                                 | 3744/12000 [00:28&lt;01:03, 129.93 examples/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|████████████████████████████████████████████▏                                                                                                | 3760/12000 [00:28&lt;01:03, 130.21 examples/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Map:  31%|████████████████████████████████████████████▏                                                                                                | 3760/12000 [00:28&lt;01:03, 130.37 examples/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1785,7 +1820,7 @@ document.write(`
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">26</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dataset_hidden</span><span class="o">=</span><span class="n">dataset_encoded</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">extract_hidden_states</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
 <span class="nn">File ~/anaconda3/envs/nlp_workshop/lib/python3.10/site-packages/datasets/dataset_dict.py:853,</span> in <span class="ni">DatasetDict.map</span><span class="nt">(self, function, with_indices, with_rank, input_columns, batched, batch_size, drop_last_batch, remove_columns, keep_in_memory, load_from_cache_file, cache_file_names, writer_batch_size, features, disable_nullable, fn_kwargs, num_proc, desc)</span>
@@ -1901,7 +1936,7 @@ document.write(`
 <span class="g g-Whitespace">   </span><span class="mi">3356</span>         <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">processed_inputs</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed_inputs</span><span class="o">.</span><span class="n">keys_to_format</span>
 <span class="g g-Whitespace">   </span><span class="mi">3357</span>     <span class="p">}</span>
 
-<span class="nn">Cell In[23], line 9,</span> in <span class="ni">extract_hidden_states</span><span class="nt">(batch)</span>
+<span class="nn">Cell In[24], line 9,</span> in <span class="ni">extract_hidden_states</span><span class="nt">(batch)</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">last_hidden_state</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">last_hidden_state</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Return vector for [CLS] token</span>
 <span class="ne">----&gt; </span><span class="mi">9</span> <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;hidden_state&quot;</span><span class="p">:</span> <span class="n">last_hidden_state</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()}</span>
